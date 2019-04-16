@@ -1,0 +1,49 @@
+<div class="bjui-pageContent tableContent">
+    <form action="__URL__/shenhe/navTabId/{:CONTROLLER_NAME}" class="pageForm" data-toggle="validate">
+		<input type="hidden" name="xid" value="{$xid}">
+        <div class="pageFormContent" data-layout-h="0">
+		<if condition="$shenhe neq '审核通过'"> 
+          <table class="table table-condensed table-hover" width="100%">
+           <tbody>
+			<tr><td><label for='type_input' class='control-label x85'>审核状态:</label><select name='title'  data-toggle='selectpicker' ><option value=''>请选择</option><volist name='Think.config.SHENHE' id='type'><option value='{$type}' <if condition=" $type EQ $Rs['title'] " >selected</if> >{$type}</option></volist></td></tr>
+			<tr><td><label for='title_input' class='control-label x85'>审核意见:</label><input type='text'  name='content'  size='50'   value='{$Rs.content}'  ></td></tr>
+<tr>
+           </tbody>
+          </table> <else /></if>
+		  <table class="table table-condensed table-hover" width="100%">
+        <thead>
+            <tr>
+            <th width="10" height="30"></th>
+            <th>ID</th>
+<th>审核状态</th>
+<th>审核意见</th>
+<th>审核人</th>
+<th>审核时间</th>
+            </tr>
+        </thead>
+        <tbody>
+
+          <volist id="v" name="list">
+          <tr>
+		   <td></td>
+		   <td>{$v.id|msubstr=###,0,20}</td>
+<td>{$v.title|msubstr=###,0,20}</td>
+<td>{$v.content|msubstr=###,0,80}</td>
+<td>{$v.uname|msubstr=###,0,20}</td>
+<td>{$v.addtime|msubstr=###,0,20}</td>
+
+         </tr> 
+          </volist>
+        </tbody>
+    </table>
+        </div>
+    </form>
+</div>
+<if condition="$shenhe neq '审核通过'"> 
+        <div class="bjui-pageFooter">
+    <ul>
+       <li><button type="button" class="btn-close" data-icon="close">取消</button></li>
+       <li><button type="submit" class="btn-default" data-icon="save">保存</button></li>
+    </ul>
+</div>
+ <else /></if>

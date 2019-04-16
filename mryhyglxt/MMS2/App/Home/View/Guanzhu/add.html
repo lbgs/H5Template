@@ -1,0 +1,20 @@
+<div class="bjui-pageContent tableContent">
+    <form action="__URL__/add/navTabId/{:CONTROLLER_NAME}" class="pageForm" data-toggle="validate">
+		<input type="hidden" name="id" value="{$id}">
+        <div class="pageFormContent" data-layout-h="0">
+          <table class="table table-condensed table-hover" width="100%">
+           <tbody>
+			<tr><td><label for='nickname_input' class='control-label x85'>昵称:</label><input type='text' id='nickname' name='nickname'  size='20'   value='{$Rs.nickname}'  ></td></tr>
+<tr><td><label for='sex_input' class='control-label x85'>性别:</label><volist name='Think.config.BASE_SEX' id='sex'><input type='radio'  name='sex' data-toggle='icheck'  data-label='{$sex}' value='{$sex}' <if condition=" $sex EQ $Rs['sex'] " >checked data-rule='checked'</if> ></volist></td><td><label for='fenlei_input' class='control-label x85'>分类:</label><input type='text' id='fenlei' name='fenlei'  size='20'   value='{$Rs.fenlei}'  ></td></tr>
+<tr>
+           </tbody>
+          </table>
+        </div>
+    </form>
+</div>
+<div class="bjui-pageFooter">
+    <ul>
+       <li><button type="button" class="btn-close" data-icon="close">取消</button></li>
+       <li><button type="submit" class="btn-default" data-icon="save">保存</button></li>
+    </ul>
+</div>

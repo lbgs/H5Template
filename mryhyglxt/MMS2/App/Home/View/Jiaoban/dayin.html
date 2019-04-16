@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>{$Think.config.WEB_SITE_TITLE} Power by 连云港信友科技有限公司 服务热线：400-000-9981</title>
+<meta name="Keywords" content="连云港信友科技有限公司 服务热线：400-000-9981"/>
+<meta name="Description" content="连云港信友科技有限公司 服务热线：400-000-9981"/> 
+<!-- bootstrap - css -->
+<link href="__PUBLIC__/BJUI/themes/css/bootstrap.min.css" rel="stylesheet">
+<script src="__PUBLIC__/BJUI/js/jquery-1.7.2.min.js"></script>
+<script src="__PUBLIC__/BJUI/js/jquery.PrintArea.js"></script>
+</head>
+<body>
+<!-- core - css -->
+<php>
+if(isset($_REQUEST['time1']) && $_REQUEST['time1'] != ''&&isset($_REQUEST['time2']) && $_REQUEST['time2'] != ''){ 
+$map['shijian'] =array(array('egt',I('time1').' 00:00:00'),array('elt',I('time2').' 59:59:59'));
+$map1['addtime'] =array(array('egt',I('time1').' 00:00:00'),array('elt',I('time2').' 59:59:59'));
+$qujian=I('time1').'-'.I('time2');
+}else{
+$map['shijian'] =array(array('egt',date("Y-m-d",time()).' 00:00:00'),array('elt',date("Y-m-d",time()).' 59:59:59'));
+$map1['addtime'] =array(array('egt',date("Y-m-d",time()).' 00:00:00'),array('elt',date("Y-m-d",time()).' 59:59:59'));
+$qujian=date("Y-m-d",time()).' 00:00:00 -'.date("Y-m-d H:m:s",time());
+}
+if(session('iszb')=='是'){
+$where['shopid']=array("eq",I('shopid'));
+}else{
+$where['shopid']=array("eq",session("shopid"));
+}
+$map1['_complex'] = $where;
+</php>
+<div class="container min_width1300"  id="printArea" style="text-align:center">
+     <h3>{$Think.session.shopid|get_shop_name=###}交班交接表</h3>
+<table border="0"  width="100%" style="font-size:14px;">
+<tbody>
+<tr><td width="25%">审核人:</td><td width="25%">接收人:</td><td width="20%">交接人: {$Rs.uname}</td><td width="35%">打印:<php>echo date("Y-m-d H:i:s",time());</php>
+</td></tr>
+</tbody>
+</table>
+<table border="1"  width="100%" style="font-size:14px;">
+<tr><Td colspan="10"><b>{$qujian}:</b> &nbsp;&nbsp;&nbsp;&nbsp;
+</td></tr>
+<Tr>
+<Td><b>现金收入</b></td><Td>
+<php>
+$xianjin=M('zijin')->where($map1)->sum('xianjin');
+echo $xianjin/1;
+</php>
+</td>
+<Td><b>银联收入</b></td><Td>
+<php>
+$pos=M('zijin')->where($map1)->sum('pos');
+echo $pos/1;
+</php>
+</td>
+<Td><b>余额支付</b></td><Td>
+<php>
+$yue=M('zijin')->where($map1)->sum('yue');
+echo $yue/1;
+</php>
+</td>
+<Td><b>优惠金额</b></td><Td>
+<php>
+$jian=M('zijin')->where($map1)->sum('jian');
+echo $jian/1;
+</php>
+</td>
+<Td><b>赠送金额</b></td><Td>
+<php>
+$song=M('zijin')->where($map1)->sum('song');
+echo $song/1;
+</php>
+</td>
+</tr>
+</table>
+
+<table border="1"  width="100%" style="font-size:14px;">
+                       <thead>
+                <tr>
+                    <th rowspan="2" data-order-field="id">ID</th>
+<th rowspan="2" data-order-direction='desc' data-order-field='bianhao'>产品编号</th>
+<th rowspan="2">产品名称</th>
+<th rowspan="2">计量单位</th>
+                <th colspan="3" align="center">{$qujian}统计</th>
+                </tr>
+                <tr>
+                    <th>入库/退货/归还</th>
+                    <th>出库/销售/调拨</th>
+					<th  data-order-direction='desc' data-order-field='kucun'>目前库存</th>
+                </tr>
+            </thead>
+            <tbody>
+                <volist id="v" name="list">
+          <tr>
+<td>{$v.id}</td>
+<td>{$v.bianhao}</td>
+<td>{$v.title|msubstr=###,0,20}</td>
+<td>{$v.danwei|msubstr=###,0,20}</td>
+<td>
+<php>
+$where['bianhao']=array("eq",$v['bianhao']);
+$map['_complex'] = $where;
+echo M('rukus')->where($map)->sum('shuliang')/1;
+</php>
+</td>
+<td>
+<php>
+$where['bianhao']=array("eq",$v['bianhao']);
+$map['_complex'] = $where;
+echo M('chukus')->where($map)->sum('shuliang')/1;
+</php>
+</td>
+<td>{$v.kucun}</td>
+         </tr> 
+          </volist>
+            </tbody>
+        </table>			  
+</div>
+<div style="text-align:center;margin-top:50px;">
+		<button type="button" id="print_btn" class="btn btn-primary">打印</button>&nbsp;
+		<button type="button" onclick="javascript:window.close();" class="btn">关闭</button>
+	   </div>
+<script type="text/javascript">
+/**
+ * 打印
+ **/
+$('#print_btn').click(function(){
+	$('#printArea').printArea();
+	$(this).html('加载中 ...');
+	setTimeout("$('#print_btn').html('打印');",1200);
+});
+</script>
+ </body>
+</html>

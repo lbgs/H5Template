@@ -1,0 +1,39 @@
+<extend name="base" />
+<block name="main">
+   <div class="tab_menu">
+        <ul>
+            <li><a href="#">顾问提成</a> </li>
+            <li class="selected"><a href="#">顾客满意度</a> </li>
+        </ul>
+    </div>
+    <div class="tab_con">
+        <div class="common saleChart_list1">
+            <table border="0" cellspacing="0" cellpadding="0" width="100%">
+                <tbody>
+				<volist id="v" name="list">
+                    <tr>
+                        <td><b class="cur">{$key+1}</b>{$v.juname}</td>
+                        <td><i>{$v.count}</i>元</td>
+                    </tr>
+				</volist>
+                </tbody>
+            </table>
+            <h2><php>echo date("Y年m月份",time());</php></h2>
+        </div>
+        <div class="common saleChart_list1">
+            <table border="0" cellspacing="0" cellpadding="0" width="100%">
+                <tbody>
+                <volist id="v" name="list2">
+                    <tr>
+                        <td><b class="cur">{$key+1}</b>{$v.xingming}</td>
+                        <td><i>{$v.manyi}</i>%</td>
+                    </tr>
+				</volist>
+                </tbody>
+            </table>
+            <h2><php>echo date("Y年m月份",time());</php></h2>
+        </div>
+    </div>
+    
+
+</block>

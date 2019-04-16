@@ -1,0 +1,75 @@
+<div class="bjui-pageHeader">
+<form id="pagerForm" data-toggle="ajaxsearch" action="__URL__" method="get">
+	<input type="hidden" name="pageSize" value="{$numPerPage}">
+    <input type="hidden" name="pageCurrent" value="{$_REQUEST['pageNum']|default=1}">
+        <div class="bjui-searchBar">
+			<label>时间：</label><input type='text' data-toggle='datepicker' value='{$_REQUEST['time1']}' name='time1' class='form-control' size='12' />-<input type='text' data-toggle='datepicker' value='{$_REQUEST['time2']}' name='time2' class='form-control' size='12' />
+			<php>if(session('iszb')=='是'){</php>
+			<label>所属店铺：</label>
+			<select  name="shopid" data-toggle="selectpicker" >
+             <option  value="">全部</option>
+			 <php>$slist=M('shop')->select();</php>
+	         <foreach name="slist" item="v">
+             <option <if condition="$v.id EQ $_REQUEST['shopid'] ">selected value="{$_REQUEST['shopid']}" <else/>value="{$v.id}"</if> >
+	         <switch name="v.level">  <case value="0">+</case> <case value="1">+--</case><case value="2">+------</case><default /></switch>
+	         {$v.title}
+	          </option>
+              </foreach>
+             </select>
+			 <php>}</php>
+             <button type="submit"  class="btn-default" data-icon="search">查询</button>
+             <a class="btn btn-orange" href="javascript:;" onclick="$(this).navtab('reloadForm', true);" data-icon="undo">清空查询</a>
+			 <php>if(display(CONTROLLER_NAME.'/dayin')){</php><span style="float:right;margin-right:5px;"><a href="{:U('jsticheng/dayin',array('time1'=>$_REQUEST['time1'],'time2'=>$_REQUEST['time2'],'shopid'=>$_REQUEST['shopid'],'juname'=>$_REQUEST['juname']))}" target="_blank" class="btn btn-blue" data-icon="print">打印</a></span><php>}</php>
+		</div> 
+</form>
+    
+</div>
+<div class="bjui-pageContent tableContent">
+ <php>
+if(isset($_REQUEST['time1']) && $_REQUEST['time1'] != ''&&isset($_REQUEST['time2']) && $_REQUEST['time2'] != ''){
+  $map =" addtime>='".I('time1')." 00:00:00' and addtime<='".I('time2')." 59:59:59' ";
+  }else{
+  $map=" id<>0 ";
+}
+  $yue=date("Y-m",time());
+  $nian=date("Y",time());
+  $ri=date("Y-m-d",time());
+</php>
+<table data-toggle="tablefixed" data-width="100%" data-layout-h="0" data-nowrap="true">
+        <thead>
+            <tr>
+            <th width="30" height="30"></th>
+            <th>编号</th>
+            <th>姓名</th>
+			<th>店铺</th>
+		    <th>部门</th>
+	    	<th>职位</th>
+            <th>本日提成</th>
+			<th>本月提成</th>
+			<th>本年提成</th>
+			<th>{:I('time1')}-{:I('time2')}</th>
+            </tr>
+        </thead>
+        <tbody>
+          <volist id="v" name="list">
+          <tr>
+		   <td></td>
+		   <td>{$v.id}</td>
+           <td>{$v.truename}</td>
+		   <td>{$v.shopid|get_shop_name=###} </td>
+		   <td>{$v.depname}</td>
+		   <td>{$v.posname}</td>
+           <td><php>$rticheng=M('ticheng')->where("addtime like '%".$ri."%' and juid=".$v['id']." ")->sum('jine');echo $rticheng/1;</php></td>
+		   <td><php>$yticheng=M('ticheng')->where("addtime like '%".$yue."%' and juid=".$v['id']." ")->sum('jine');echo $yticheng/1;</php></td>
+		   <td><php>$nticheng=M('ticheng')->where("addtime like '%".$nian."%' and juid=".$v['id']." ")->sum('jine');echo $nticheng/1;</php></td>
+		   <td><php>$ticheng=M('ticheng')->where($map." and juid=".$v['id']." ")->sum('jine');echo $ticheng/1;</php></td>
+         </tr> 
+          </volist>
+        </tbody>
+    </table>
+</div>
+<div class="bjui-pageFooter">
+    <ul>
+       <li><button type="button" class="btn-close" data-icon="close">关闭</button></li>
+    </ul>
+</div>

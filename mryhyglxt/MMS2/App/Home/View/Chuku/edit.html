@@ -1,0 +1,60 @@
+<div class="bjui-pageContent tableContent">
+    <form action="__URL__/edit/navTabId/{:CONTROLLER_NAME}" class="pageForm" data-toggle="validate">
+		<input type="hidden" name="id" value="{$id}">
+        <div class="pageFormContent" data-layout-h="0">
+           <table class="table table-condensed table-hover" width="100%">
+		  <tbody>
+		   <Tr><td style="text-align:Center"><h3>{$Rs.shopid|get_shop_name=###}出库单</h3></td></tr>
+		   <tr><td style="text-align:Center">单号：<input type='text'  name='number' data-rule='required;' size='20'   value='{$Rs.number}'  > &nbsp;&nbsp;&nbsp;&nbsp;去处:<input type='text' id='bianhao' name='bianhao'  size='20' value='{$Rs.bianhao}'  > &nbsp;&nbsp;&nbsp;&nbsp;出库时间:<input type='text' data-toggle='datepicker' name='shijian'  data-rule='required;' size='20' data-min-date="%y-%M-%d"  value='{$Rs.shijian|substr=###,0,10}'  ></td></tr>
+            <tr><td colspan=2><input type='hidden' id='hid' name='hid'  size='0'   value='{$Rs.hid}'  ></td></tr>
+		   </tbody>
+		  </table>
+		   <table class="table table-bordered table-hover table-striped table-top"   data-toggle="tabledit">
+                <thead>
+                    <tr>
+                        <th title="ID" ><input type="text"  size="5" name="mid[#index#].mid" value="" readonly  placeholder="ID"></th>
+                        <th title="产品编号"><input type="text" name="xbianhao[#index#]" id="index[#index#].bianhao"  type="text"  value="" size="10" data-toggle="lookup" data-url='__MODULE__/Basic/ku/navTabId/{:CONTROLLER_NAME}' data-group="index[#index#]" ></th>
+                        <th title="产品名称"><input type="text" name="xtitle[#index#]" id="index[#index#].title" type="text"  value="" size="10"  ></th>
+                        <th title="产品大类"><input type="text" name="xdalei[#index#]" id="index[#index#].dalei" type="text"  value="" size="10" ></th>
+						<th title="产品分类"><input type="text" name="xfenlei[#index#]" id="index[#index#].fenlei" type="text"  value="" size="10" ></th>
+						<th title="产品规格"><input type="text" name="xtype[#index#]"  id="index[#index#].type" size="10" value=""></th>
+						<th title="计量单位"><input type="text" name="xdanwei[#index#]"  id="index[#index#].danwei" size="10" value=""></th>
+						<th title="数量"><input type="text" name="xshuliang[#index#]" size="10" id="num#index#" value="0" onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')"></th>
+						<th title="备注"><input type="text" name="xbeizhu[#index#]" size="10"  value="" ><input type="hidden" name="xcid[#index#]" id="cid[#index#].cid"  size="10" value="" ></th>
+						<th title="" data-addtool="true" width="50">
+                            <a href="__MODULE__/public/delok" class="btn btn-red row-del" data-confirm-msg="确定要删除该行信息吗？">删</a>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                     <php>$list = M('chukus')->where(array("xid"=>$Rs['id']))->select();</php>
+					<volist id="v" name="list">
+					<tr>
+		   <td>{$v.id}</td>
+<td>{$v.bianhao}</td>
+<td>{$v.title}</td>
+<td>{$v.dalei}</td>
+<td>{$v.fenlei}</td>
+<td>{$v.type}</td>
+<td>{$v.danwei}</td>
+<td>{$v.shuliang}</td>
+<td>{$v.beizhu}</td>
+<td>--</td>
+</tr>
+ </volist>
+                </tbody>
+            </table>
+			<table class="table table-condensed table-hover" width="100%">
+            <tbody>
+<tr><td style="text-align:Center">审核人:<input type='text'  name='shenheren'  size='20'  readonly  value='{$Rs.shenheren}'  >  经办人:<input type='text'  name='jingban'  size='20' readonly  value='{$Think.session.truename}'  ></td></tr>
+            </tbody>
+          </table>
+        </div>
+    </form>
+</div>
+<div class="bjui-pageFooter">
+    <ul>
+       <li><button type="button" class="btn-close" data-icon="close">取消</button></li>
+       <li><button type="submit" class="btn-default" data-icon="save">保存</button></li>
+    </ul>
+</div>

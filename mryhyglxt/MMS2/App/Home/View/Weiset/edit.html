@@ -1,0 +1,25 @@
+<div class="bjui-pageContent tableContent">
+    <form action="__URL__/edit/navTabId/{:CONTROLLER_NAME}" class="pageForm" data-toggle="validate">
+		<input type="hidden" name="id" value="1">
+        <div class="pageFormContent" data-layout-h="0">
+          <table class="table table-condensed table-hover" width="100%">
+           <tbody>
+		   <tr><td width=150>公众号名称:</td><Td><input type='text' id='title' name='title' data-rule='required;' size='20'   value='{$Rs.title}'  ></td></tr>
+		   <tr><td>公众号原始ID:</td><Td><input type='text' id='ghid' name='ghid' data-rule='required;' size='20'   value='{$Rs.ghid}'  >请认真填写。比如：gh_abf28c1d4f65</td></tr>
+<tr><td>微信号:</td><Td><input type='text' id='name' name='name'  size='20'   value='{$Rs.name}'  ></td></tr>
+<tr><td>Token:</td><Td><input type='text' id='token' name='token' data-rule='required;' size='20'   value='{$Rs.token}'  >微信后台填写的TOKEN</td></tr>
+<tr><td>API接口:</td><Td><input type='text' size='60'   value='http://<php>echo $_SERVER['SERVER_NAME'];</php>__ROOT__/index.php/api/{$Rs.token}'  ></td></tr>
+<tr><td>AppID（公众号）:</td><Td><input type='text' id='appid' name='appid'  size='30'   value='{$Rs.appid}'  >用于自定义菜单等高级功能</td></tr>
+<Tr><td>AppSecret:</td><Td><input type='text' id='appsecret' name='appsecret'  size='30'   value='{$Rs.appsecret}'  >用于自定义菜单等高级功能</td></tr>
+<tr><td>公众号二维码:</td><Td><div style='display: inline-block; vertical-align: middle;'><IFRAME   src='__MODULE__/Public/attfile/attid/{$attid}/'  frameBorder=0 width='100%' height='30' scrolling=no ></IFRAME><input type='hidden' id='attid' name='attid'  value='{$attid}'  ><a href='__MODULE__/Public/uploads/attid/{$attid}/'   class='btn btn-green btn-sm' data-toggle='dialog' data-width='550' data-height='300' data-id='dialog-normal' data-mask='true' >已上传文件管理</a></div></td></tr>
+           </tbody>
+          </table>
+        </div>
+    </form>
+</div>
+<div class="bjui-pageFooter">
+    <ul>
+       <li><button type="button" class="btn-close" data-icon="close">取消</button></li>
+       <li><button type="submit" class="btn-default" data-icon="save">保存</button></li>
+    </ul>
+</div>

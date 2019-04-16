@@ -1,0 +1,188 @@
+<php>
+if(session('iszb')=='是'){
+$map=' and id<>0 ';
+}else{
+$map=" and shopid=".session('shopid')." ";
+}
+</php>
+<div class="bjui-pageHeader" style="background:#FFF;">
+    <div style="padding: 0 15px;">
+        <h4 style="margin-bottom:20px;">
+            {$Think.session.shopid|get_shop_name=###}　<small>
+			地址：<php>echo M('shop')->where(array('id'=>session('shopid')))->getField('dizhi');</php>
+			电话：<php>echo M('shop')->where(array('id'=>session('shopid')))->getField('dianhua');</php>
+			</small>
+        </h4>
+        <div style="float:left; width:157px;">
+            <div class="alert alert-info" role="alert" style="margin:0 0 5px; padding:10px;">
+                <img src="__ROOT__/{$trs['folder']}{$trs['filename']}" width="135">
+            </div>
+        </div>
+        <div style="margin-left:170px; margin-top:22px; padding-left:6px;">
+            <span style="padding-left:10px;">今天新增会员：</span><b><font color=red><php>echo M('huiyuan')->where("addtime like '%".date('Y-m-d',time())."%'".$map)->count('id')/1;</php></font></b>人
+			<span style="padding-left:10px;">今天</span>
+			现金收入：<b><font color=red><php>echo M('zijin')->where("addtime like '%".date('Y-m-d',time())."%' ".$map)->sum('xianjin')/1;</php></font></b>元 /
+			银联收入<b><font color=red><php>echo M('zijin')->where("addtime like '%".date('Y-m-d',time())."%' ".$map)->sum('pos')/1;</php></font></b>元 /
+			卡支付<b><font color=red><php>echo M('zijin')->where("addtime like '%".date('Y-m-d',time())."%' ".$map)->sum('yue')/1;</php></font></b>元 /
+			赠送<b><font color=red><php>echo M('zijin')->where("addtime like '%".date('Y-m-d',time())."%' ".$map)->sum('song')/1;</php></font></b>元  /
+			优惠<b><font color=red><php>echo M('zijin')->where("addtime like '%".date('Y-m-d',time())."%' ".$map)->sum('jian')/1;</php></font></b>元
+        </div>
+        <div class="row" style="margin-left:170px; margin-top:10px;">
+		 <form action="__URL__/index/navTabId/{:CONTROLLER_NAME}" class="pageForm" data-toggle="validate">
+		 <input type="hidden" name="id" value="{$Think.session.uid}">
+            <div class="col-md-12" style="padding:5px;">
+                <div class="alert alert-success" role="alert" style="margin:0 0 5px; padding:5px 15px;">
+                    <h5>我的便签、记事本 &nbsp;<button type="submit" class="btn-default">保存</button></h5>
+                    <textarea style="width:100%;height:75px;border:0px;line-height:150%" name="bian">{$Rs.bian}</textarea> 
+                </div>
+            </div>
+		 </form>
+        </div>
+    </div>
+</div>
+<div class="bjui-pageContent">
+    <div style="margin-top:5px;  overflow:hidden;">
+        <div class="row" style="padding: 0 8px;">
+           		<!--//-->
+                      <div class="col-md-6">
+                        <div class="panel panel-default">
+                          <div class="panel-heading"><h3 class="panel-title"><i class="fa fa-user-md"></i> 近期生日的会员 <a href="{:U('huiyuan/shengri')}" data-toggle="navtab" data-id="{:U('huiyuan/shengri')}" data-title="近期生日的会员">详细</a></h3></div>
+                            <div style="min-height:185px">
+							<table class="table table-bordered table-striped table-hover">
+                             <thead>
+                              <tr>
+                              <th height=30>姓名</th>
+                              <th>性别</th>
+                              <th>联系电话</th>
+                              <th>会员等级</th>
+                              <th>会员生日</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+							<php>
+							$benyue=date("-m-",time());
+		                    $xiayue=date("-m-",strtotime("+1 month"));
+		                    $list = M('huiyuan')->where("shengri like '%".$benyue."%' or shengri like '%".$xiayue."%'")->limit(5)->select();
+							</php>
+						    <volist id="v" name="list">
+                            <tr>
+                              <td>{$v.xingming|msubstr=###,0,20}</td>
+                              <td>{$v.sex}</td>
+                              <td>{$v.dianhua|msubstr=###,0,20}</td>
+                              <td>{$v.dengji}</td>
+                              <td>{$v.shengri|substr=###,0,10}</td>
+                            </tr>
+							</volist>
+                           </tbody>
+                          </table>
+						  </div>
+                        </div>
+                      </div>
+                      <!--//-->
+                      <!--//-->
+                      <div class="col-md-6">
+                        <div class="panel panel-default">
+                          <div class="panel-heading"><h3 class="panel-title"><i class="fa fa-pencil-square-o"></i> 一个月未来消费 <a href="{:U('huiyuan/weixiaofei')}" data-toggle="navtab" data-id="{:U('huiyuan/weixiaofei')}" data-title="一个月未来消费">详细</a></h3></div>
+                            <div style="min-height:185px">
+							<table class="table table-bordered table-striped table-hover">
+                             <thead>
+                              <tr>
+                              <th height=30>姓名</th>
+                              <th>性别</th>
+                              <th>联系电话</th>
+                              <th>会员等级</th>
+                              <th>上次消费</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+							<php>
+		                    $list = M('huiyuan')->where(array('updatetime'=>array('elt',date("Y-m-d",strtotime("-1 month")))))->limit(5)->select();
+							</php>
+						    <volist id="v" name="list">
+                            <tr>
+                              <td>{$v.xingming|msubstr=###,0,20}</td>
+                              <td>{$v.sex}</td>
+                              <td>{$v.dianhua|msubstr=###,0,20}</td>
+                              <td>{$v.dengji}</td>
+                              <td>{$v.updatetime|substr=###,0,10}</td>
+                            </tr>
+							</volist>
+                           </tbody>
+                          </table>
+						  </div>
+                        </div>
+                      </div>
+                      <!--//-->  
+					  <!--//-->
+                      <div class="col-md-6">
+                        <div class="panel panel-default">
+                          <div class="panel-heading"><h3 class="panel-title"><i class="fa fa-volume-up"></i>  新闻动态 <a href="{:U('news/index')}" data-toggle="navtab" data-id="{:U('news/index')}" data-title="新闻动态">详细</a></h3></div>
+                            <div style="min-height:185px">
+							<table class="table table-bordered table-striped table-hover">
+                             <thead>
+                              <tr>
+                              <th height=30>标题</th>
+                              <th>分类</th>
+                              <th>浏览</th>
+                              <th>发布</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+							<php>$list=M('news')->order("id desc")->limit(5)->select();</php>
+						    <volist id="v" name="list">
+                            <tr>
+                              <td>{$v.title|msubstr=###,0,30}</td>
+                              <td>{$v.fenlei|msubstr=###,0,10}</td>
+                              <td><a href="http://<php>echo $_SERVER['SERVER_NAME'];</php>__ROOT__/index.php/news/{$v.id}" target="_blank">打开浏览</a></td>
+                              <td>{$v.addtime|substr=###,0,10}</td>
+                            </tr>
+							</volist>
+                           </tbody>
+                          </table>
+						  </div>
+                        </div>
+                      </div>
+                      <!--//--> 
+                      <div class="col-md-6">
+                        <div class="panel panel-default">
+                          <div class="panel-heading"><h3 class="panel-title"><i class="fa fa-phone-square"></i>  客户预约 <a href="{:U('yuyue/index')}" data-toggle="navtab" data-id="{:U('yuyue/index')}" data-title="客户预约">详细</a></h3></div>
+                            <div style="min-height:185px">
+							<table class="table table-bordered table-striped table-hover">
+                             <thead>
+                              <tr>
+                              <th height=30>会员</th>
+							  <th>预约时间</th>
+							  <th>预约内容</th>
+							  <th>员工姓名</th>
+							  <th>新增时间</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+							<php>
+							 if(session('iszb')!=='是'){
+			                  $map1['shopid'] = array('EQ', session('shopid'));  
+		                      }else{
+							  $map1='id<>0';
+							  }
+							$list=M('yuyue')->where($map1)->order("id desc")->limit(5)->select();</php>
+						    <volist id="v" name="list">
+                            <tr>
+                              <td>{$v.xingming}</td>
+							  <td>{$v.yytime}</td>
+							  <td>{$v.title}</td>
+							  <td>{$v.juname}</td>
+							  <td>{$v.addtime|substr=###,0,10}</td>
+                            </tr>
+							</volist>
+                           </tbody>
+                          </table>
+						  </div>
+                        </div>
+                      </div>
+                      <!--//-->  
+
+       									  
+			
+        </div>
+    </div>
+</div>

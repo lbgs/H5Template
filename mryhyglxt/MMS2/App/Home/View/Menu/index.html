@@ -1,0 +1,42 @@
+<div class="bjui-pageHeader">
+<form id="pagerForm" data-toggle="ajaxsearch" action="__URL__" method="post">
+	
+	<input type="hidden" name="pageSize" value="{$numPerPage}">
+    <input type="hidden" name="pageCurrent" value="{$_REQUEST['pageNum']|default=1}">
+	 
+        <div class="bjui-searchBar">
+		      <php>if(display(CONTROLLER_NAME.'/del')){</php><span style="float:right;" ><a href="__URL__/del/navTabId/{:CONTROLLER_NAME}" class="btn btn-red" data-toggle="doajax" data-confirm-msg="确定要清理吗？" data-icon="remove">清理</a></span><php>}</php>
+			  <php>if(display(CONTROLLER_NAME.'/add')){</php><span style="float:right;margin-right:5px;"><a href="__URL__/add/navTabId/{:CONTROLLER_NAME}" class="btn btn-green" data-toggle="dialog" data-width="600" data-height="300" data-id="dialog-mask" data-mask="true" data-icon="plus">新增</a></span><php>}</php>
+			  <span><a class="btn btn-orange" href="javascript:;" onclick="$(this).navtab('reloadForm', true);" data-icon="undo">刷新</a></span>
+		</div> 
+</form>
+    
+</div>
+<div class="bjui-pageContent tableContent">
+     <table data-toggle="tablefixed" data-width="100%" data-layout-h="0" data-nowrap="true">
+        <thead>
+            <tr>
+            <th width="30" height="30"></th>
+            <th>编号</th>
+				<th>菜单名称</th>
+				<th>排序</th>
+				<th>链接网址</th>
+				<php>if(display(CONTROLLER_NAME.'/lock')){</php><th>状态</th><php>}</php>
+				<php>if(display(CONTROLLER_NAME.'/edit')){</php><th>操作</th><php>}</php>
+            </tr>
+        </thead>
+        <tbody>
+        <foreach name="list" item="v">
+    	<tr>
+        <td height=25></td><Td>{$v.id}</td><Td>
+		<switch name="v.level">  <case value="0">+<B>{$v.catename}</b></case> <case value="1">+--{$v.catename}</case><case value="2">+------{$v.catename}</case><default /></switch>
+	   </td>
+	    <Td>{$v.sort}</td>
+        <td>{$v.alink}</td>
+        <php>if(display(CONTROLLER_NAME.'/lock')){</php><td><a href="__URL__/lock/id/{$v['id']}/navTabId/{:CONTROLLER_NAME}" data-toggle="doajax" data-confirm-msg="确定要操作吗？"><if condition="$v.status EQ 1 "><img src="__PUBLIC__/images/ok.gif" border="0"/><else/><img src="__PUBLIC__/images/locked.gif" border="0"/></if></a></td><php>}</php>
+		<php>if(display(CONTROLLER_NAME.'/edit')){</php><td> <a href="__URL__/edit/id/{$v['id']}/navTabId/{:CONTROLLER_NAME}"   class="btn btn-green btn-sm" data-toggle="dialog" data-width="600" data-height="300" data-id="dialog-mask" data-mask="true" >编辑</a></td><php>}</php>
+        </tr>
+        </foreach>
+        </tbody>
+    </table>
+</div>

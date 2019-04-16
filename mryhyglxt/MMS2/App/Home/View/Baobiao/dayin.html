@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>{$Think.config.WEB_SITE_TITLE} Power by 连云港信友科技有限公司 服务热线：400-000-9981</title>
+<meta name="Keywords" content="连云港信友科技有限公司 服务热线：400-000-9981"/>
+<meta name="Description" content="连云港信友科技有限公司 服务热线：400-000-9981"/> 
+<!-- bootstrap - css -->
+<link href="__PUBLIC__/BJUI/themes/css/bootstrap.min.css" rel="stylesheet">
+<script src="__PUBLIC__/BJUI/js/jquery-1.7.2.min.js"></script>
+<script src="__PUBLIC__/BJUI/js/jquery.PrintArea.js"></script>
+</head>
+<body>
+<php>
+if(isset($_REQUEST['time1']) && $_REQUEST['time1'] != ''){
+  $riqi=substr($_REQUEST['time1'],0,7);
+  $nian=substr($_REQUEST['time1'],0,4);
+  $chaxun=substr($_REQUEST['time1'],0,10);
+  }else{
+  $riqi=date("Y-m",time());
+  $nian=date("Y",time());
+  $chaxun=date("Y-m-d",time());
+}
+if(session('iszb')=='是'){
+  if(isset($_REQUEST['shopid']) && $_REQUEST['shopid'] != ''){
+ $map=" and shopid=".I('shopid')." ";
+ $shopname=get_shop_name($_REQUEST['shopid']);
+}else{
+ $shopname='全部店铺';
+ }
+}else{
+ $map=" and shopid=".session('shopid')." ";
+ $shopname=get_shop_name(session('shopid'));
+
+}
+$yueyingyee=M('zijin')->where("addtime like '%".$riqi."%' and (type<>'充值' and type<>'退款') ".$map)->sum('jine');
+$nianyingyee=M('zijin')->where("addtime like '%".$nian."%' and (type<>'充值' and type<>'退款') ".$map)->sum('jine');
+$yingyee=M('zijin')->where("id<>0 and (type<>'充值' and type<>'退款') ".$map)->sum('jine');
+$yueqtsr=M('shou')->where("addtime like '%".$riqi."%'  ".$map)->sum('jine');
+$nianqtsr=M('shou')->where("addtime like '%".$nian."%' ".$map)->sum('jine');
+$qtsr=M('shou')->where("id<>0 ".$map)->sum('jine');
+$yueticheng=M('ticheng')->where("addtime like '%".$riqi."%' ".$map)->sum('jine');
+$nianticheng=M('ticheng')->where("addtime like '%".$nian."%' ".$map)->sum('jine');
+$ticheng=M('ticheng')->where("id<>0 ".$map)->sum('jine');
+$yuezhichu=M('fukuan')->where("addtime like '%".$riqi."%' ".$map)->sum('jine');
+$nianzhichu=M('fukuan')->where("addtime like '%".$nian."%' ".$map)->sum('jine');
+$zhichu=M('fukuan')->where("id<>0 ".$map)->sum('jine');
+$yuemaoli=$yueyingyee+$yueqtsr-$yueticheng-$yuezhichu;
+$nianmaoli=$nianyingyee+$nianqtsr-$nianticheng-$nianzhichu;
+$maoli=$yingyee+$qtsr-$ticheng-$zhichu;
+$yuehysl=M('huiyuan')->where("addtime like '%".$riqi."%' ".$map)->count('id');
+$nianhysl=M('huiyuan')->where("addtime like '%".$nian."%' ".$map)->count('id');
+$hysl=M('huiyuan')->where("id<>0 ".$map)->count('id');
+$yuejine=M('zijin')->where("addtime like '%".$riqi."%' and type='充值' ".$map)->sum('jine');
+$nianjine=M('zijin')->where("addtime like '%".$nian."%' and type='充值' ".$map)->sum('jine');
+$jine=M('zijin')->where("id<>0 and type='充值' ".$map)->sum('jine');
+$yuejifen=M('zijin')->where("addtime like '%".$riqi."%' and type='退款' ".$map)->sum('jine');
+$nianjifen=M('zijin')->where("addtime like '%".$nian."%' and type='退款' ".$map)->sum('jine');
+$jifen=M('zijin')->where("id<>0 and type='退款' ".$map)->sum('jine');
+</php>
+<!-- core - css -->
+<div class="container min_width1300"  id="printArea" style="text-align:center">
+     <h3>{$shopname}营业状况表</h3>
+<table border="1"  width="100%" style="font-size:14px;">  
+    <tr><Td colspan=5><div style="float:left"><h5>单位：{$shopname}</h5></div><div style="float:right"><h5>查询日期：{$chaxun}</h5></div></td></tr>            
+    <Tr><Td width='45%'><h5><B>项目</b></h5></td><Td width='10%'><h5><B>行次</b></h5></td><Td width='15%'><h5><B>本月数</b></h5></td><Td width='15%'><h5><B>本年数</b></h5></td><Td width='15%'><h5><B>历史数</b></h5></td></tr>
+    <Tr><Td><B>一、业务收入(营业额)</b></td><Td>1</td><Td>{$yueyingyee}</td><Td>{$nianyingyee}</td><Td>{$yingyee}</td></tr>
+	<Tr><Td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;加：其他业务收入</td><Td>2</td><Td>{$yueqtsr}</td><Td>{$nianqtsr}</td><Td>{$qtsr}</td></tr>
+	<Tr><Td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;减：业务成本(应付员工提成)</td><Td>4</td><Td>{$yueticheng}</td><Td>{$nianticheng}</td><Td>{$ticheng}</td></tr>
+	<Tr><Td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;减：费用支出(管理费用,工资(不含员工提成),房租,电话费等)</td><Td>5</td><Td>{$yuezhichu}</td><Td>{$nianzhichu}</td><Td>{$zhichu}</td></tr>	
+    <Tr><Td><B>二、毛利润</b></td><Td>6</td><Td>{$yuemaoli}</td><Td>{$nianmaoli}</td><Td>{$maoli}</td></tr>
+	<Tr><Td><B>三、会员数量</b></td><Td>7</td><Td>{$yuehysl}</td><Td>{$nianhysl}</td><Td>{$hysl}</td></tr>
+	<Tr><Td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;充值</td><Td>8</td><Td>{$yuejine}</td><Td>{$nianjine}</td><Td>{$jine}</td></tr>
+	<Tr><Td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;退款</td><Td>9</td><Td>{$yuejifen}</td><Td>{$nianjifen}</td><Td>{$jifen}</td></tr>	
+ </table>
+				  
+</div>
+<div style="text-align:center;margin-top:50px;">
+		<button type="button" id="print_btn" class="btn btn-primary">打印</button>&nbsp;
+		<button type="button" onclick="javascript:window.close();" class="btn">关闭</button>
+	   </div>
+<script type="text/javascript">
+/**
+ * 打印
+ **/
+$('#print_btn').click(function(){
+	$('#printArea').printArea();
+	$(this).html('加载中 ...');
+	setTimeout("$('#print_btn').html('打印');",1200);
+});
+</script>
+ </body>
+</html>

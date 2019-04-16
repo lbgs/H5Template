@@ -1,0 +1,67 @@
+{extend name="base" /}
+{block name="body"}
+	<div class="tpt—index fly-panel fly-panel-user">
+<blockquote style="padding: 10px;border-left: 5px solid #009688;" class="layui-elem-quote">欢迎EasyAdmin极简社区系统，先温馨提醒几个常见问题：</blockquote>
+<table width="100%">
+<tr>
+<td width="50%">程序正式上线运营请记得保留我们版权；</td>
+<td>确认服务器或空间开启了伪静态；</td>
+</tr>
+<tr>
+<td>如需去掉版权请联系我们QQ49007623；</td>
+<td>如果没有伪静态，请关闭配置文件中的路由功能；</td>
+</tr>
+<tr>
+<td>尽管本程序在发布前已经经过了若干严格测试；</td>
+<td>程序安装好后一定记得修改默认密码；</td>
+</tr>
+</table>
+<blockquote style="padding: 10px;border-left: 5px solid #009688;" class="layui-elem-quote">系统信息：</blockquote>
+<table width="100%">
+<tr><td width="110px">程序版本</td><td>EasyAdmin 极简社区系统 <a href="javascript:;" data-url="{:url('index/deal_sql')}" id="update" style="color:#FF5722;"  target="_blank">升级最新版本</a></td></tr>
+<tr><td>服务器类型</td><td>{:php_uname('s')}</td></tr>
+<tr><td>PHP版本</td><td>{:PHP_VERSION}</td></tr>
+<tr><td>Zend版本</td><td>{:Zend_Version()}</td></tr>
+<tr><td>服务器解译引擎</td><td>{:$_SERVER['SERVER_SOFTWARE']}</td></tr>
+<tr><td>服务器语言</td><td>{:$_SERVER['HTTP_ACCEPT_LANGUAGE']}</td></tr>
+<tr><td>服务器Web端口</td><td>{:$_SERVER['SERVER_PORT']}</td></tr>
+</table>
+<blockquote style="padding: 10px;border-left: 5px solid #009688;" class="layui-elem-quote">开发团队：</blockquote>
+<table width="100%">
+<tr><td width="110px">版权所有</td><td>北京宇内智能科技有限公司</td></tr>
+<tr><td>感谢贡献者</td><td></td></tr>
+<tr><td>特别提醒您</td><td>本程序均可免费下载使用，但严禁删除、隐藏或更改版权信息，且导致的一切损失由使用者自行承担。</td></tr>
+</table>
+</div>
+    {/block}
+    {block name="script"}
+    <script>
+    layui.use(['layer','jquery'],function(){
+    	  var jq = layui.jquery;
+    	  
+    	  
+    	  jq('#update').click(function(){
+    		  
+    		  var url=jq(this).data('url');
+    		    jq.getJSON(url,function(data){
+    		    	  loading = layer.load(2, {
+    		    	      shade: [0.2,'#000']
+    		    	    });
+    		    	
+    		      if(data.code == 200){
+    		        layer.close(loading);
+    		        layer.msg(data.msg, {icon: 1, time: 1000}, function(){
+    		          
+    		        });
+    		      }else{
+    		        layer.close(loading);
+    		        layer.msg(data.msg, {icon: 2, anim: 6, time: 1000});
+    		      }
+    		    });
+    		    return false;
+    	});
+
+    	})
+    </script>
+        {/block}
+    

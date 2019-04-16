@@ -1,0 +1,28 @@
+<extend name="base" />
+<block name="main">
+
+
+
+<div class="orderDet_list2">
+        <dl>
+            <dt>评价记录</dt>
+			<volist id="v" name="list">
+			 <dd>
+                <span class="current"></span>
+                <strong>
+                    <b>{$v.title}</b>
+					被评：{$v.juname}<Br/>
+                    评分：{$v.pingfen}<Br/>
+                    时间：{$v.addtime}<br/>
+					回评：{$v.content}<Br/>
+					时间：{$v.updatetime}
+                </strong>
+            </dd>
+
+         </volist>
+           
+            
+        </dl>
+ </div>
+
+</block>

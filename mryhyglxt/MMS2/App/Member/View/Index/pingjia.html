@@ -1,0 +1,69 @@
+<extend name="base" />
+<block name="main">
+
+<div class="proMan_list1" style="background: #fff;">
+<php>
+$count=M('ticheng')->where(array('hid'=>cookie('uid'),'juid'=>$uid))->count('id');
+if($count>0){
+  $addtime=M('pingjia')->where(array('juid'=>$uid,'hid'=>cookie('uid')))->order('id desc')->limit(1)->find();
+   if($addtime){
+    $count1=M('ticheng')->where(array('hid'=>cookie('uid'),'juid'=>$uid,'addtime'=>array('gt',$addtime['addtime'])))->count('id');
+   }else{
+    $count1=1;
+   }
+}
+if($count>0&&$count1>0){
+</php>
+        <form  action="{:U('index/pingjia')}" id="login_form" method="post">
+		<input type="hidden" name="juid" value="{$urs.id}">
+		<input type="hidden" name="shopid" value="{$urs.shopid}">
+		<input type="hidden" name="hid" value="{$Rs.id}">
+		<input type="hidden" name="xingming" value="{$Rs.xingming}">
+		<input type="hidden" name="kahao" value="{$Rs.kahao}">
+		<input type="hidden" name="addtime" value='<php>echo date("Y-m-d H:i:s",time())</php>'>
+<Table width="100%">
+<Tr><Td>姓名:</td><td><input type='text'  name='juname' readonly   value='{$urs.truename}'  ></td></tr>
+<Tr><Td>工号:</td><td><input type='text'   readonly   value='{$gonghao}'  ></td></tr>
+<Tr><Td>总体评价:</td><td>
+               <select class="span12" multiple="multiple" name="pingfen" style="width:100%">
+                        <option value="100"/>非常满意（100分）
+                        <option value="90"/>满意（90分）
+                        <option value="50"/>一般（50分）
+                        <option value="20"/>不满意（20分）
+                        <option value="0"/>非常不满意（0分）
+                    </select></td></tr>
+
+<Tr><Td>评价详情:</td><td><input type='text'  name='title'   value='{$Rs.title}'  ></td></tr>
+<Tr><Td></td><td><button class="btn_or" type="submit">提交</button></td></tr>
+</table>
+</form>
+<php>}
+else{
+echo  "该员工没有服务过您，或已经对服务过的记录评价过了！";
+}
+</php>
+</div>
+
+<div class="orderDet_list2">
+        <dl>
+            <dt>评价记录</dt>
+			<volist id="v" name="list">
+			 <dd>
+                <span class="current"></span>
+                <strong>
+                    <b>{$v.title}</b>
+					客户：{$v.xingming|msubstr=###,0,2}*<Br/>
+                    评分：{$v.pingfen}<Br/>
+                    时间：{$v.addtime}<br/>
+					回评：{$v.content}<Br/>
+					时间：{$v.updatetime}
+                </strong>
+            </dd>
+
+         </volist>
+           
+            
+        </dl>
+ </div>
+
+</block>

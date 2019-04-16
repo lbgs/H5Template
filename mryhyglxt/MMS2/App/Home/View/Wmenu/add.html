@@ -1,0 +1,33 @@
+<div class="bjui-pageContent tableContent">
+    <form action="__URL__/add/navTabId/{:CONTROLLER_NAME}" class="pageForm" data-toggle="validate">
+		<input type="hidden" name="id" value="{$id}">
+        <div class="pageFormContent" data-layout-h="0">
+          <table class="table table-condensed table-hover" width="100%">
+           <tbody>
+		   <Tr><td><h3>可创建最多3个一级菜单，每个一级菜单下可创建最多5个二级菜单。菜单名称不能超过5个汉字</h3></td></tr>
+		   <tr><td>
+                <label for="j_name" class="control-label x85">上级菜单：</label><select  name="pid" data-toggle="selectpicker" data-rule="required">
+               <option  value="0">顶级</option>
+	          <foreach name="list" item="v">
+              <option <if condition="$v.id EQ $Rs['pid'] ">selected value="{$Rs['pid']}" <else/>value="{$v.id}"</if> >
+	          <switch name="v.level">  <case value="0">+</case> <case value="1">+--</case><case value="2">+------</case><default /></switch>
+	           {$v.catename} <if condition="$v.status EQ 1 "><else/><font color=red>[未启用]</font></if>
+	         </option>
+             </foreach>
+             </select>
+            </td></tr>
+		   <tr><td><label for='catename_input' class='control-label x85'>菜单名称:</label><input type='text' id='catename' name='catename'  size='20'   value='{$Rs.catename}'  ></td></tr>
+		   <Tr><td><label for='type_input' class='control-label x85'>菜单类型:</label><volist name='Think.config.WMENU_TYPE' id='type'><input type='radio'  name='type' data-toggle='icheck'  data-label='{$type}' value='{$type}' <if condition=" $type EQ $Rs['type'] " >checked data-rule='checked'</if> ></volist>  <Font color=red>返回文字和返回图文，请在微信回复里设置和 菜单名称 一致关键词的回复即可！</font></td></tr>
+          <tr><td><label for='alink_input' class='control-label x85'>跳转网址:</label><input type='text' id='alink' name='alink'  size='20'   value='{$Rs.alink}'  ></td></tr>
+		   <Tr><td><label for='sort_input' class='control-label x85'>排序:</label><input type='text' id='sort' name='sort'  size='20' data-toggle='spinner' data-min='0' data-max='100' data-step='1' data-rule='integer'  value='{$Rs.sort}'  ></td></tr>
+           </tbody>
+          </table>
+        </div>
+    </form>
+</div>
+<div class="bjui-pageFooter">
+    <ul>
+       <li><button type="button" class="btn-close" data-icon="close">取消</button></li>
+       <li><button type="submit" class="btn-default" data-icon="save">保存</button></li>
+    </ul>
+</div>

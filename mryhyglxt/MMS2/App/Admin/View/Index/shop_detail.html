@@ -1,0 +1,66 @@
+<extend name="base" />
+<block name="main">
+<div class="derOrderSearch clearWater">
+<form class="log-page" action="{:U('index/shop_detail')}" name="login_form" method="post">
+   <input type="hidden" name="id" value="{$Rs.id}">
+    <div class="totChaRec_list1">
+        <dl>
+            <dt>
+                <span><input type="text" style="border:0px;border-bottom:1px solid #ccc" value="{$_REQUEST['time1']}" placeholder="<php>echo date('Y-m-d',time());</php>" name="time1" id="beginTime"></span>
+                <strong>至</strong>
+                <span><input type="text" style="border:0px;border-bottom:1px solid #ccc" value="{$_REQUEST['time2']}" placeholder="<php>echo date('Y-m-d',time());</php>" name="time2" id="endTime"></span>
+            </dt>
+            <dd class="btn"><a onClick="JavaScript:document.login_form.submit();">查询</a> </dd>
+        </dl>
+    </div>
+</form>
+    <div id="datePlugin"></div>
+   <div class="Perfect_data">
+        <h2 class="name">{$Rs.id|get_shop_name=###}</h2>
+        <div class="tel">{$Rs.dianhua}</div>
+        <div class="per"></div>
+        <div class="rtel">
+            <a href="tel:{$Rs.dianhua}"><img src="__PUBLIC__/assets/images/red_tel_01.jpg" alt=""></a>
+            <!--<a href="#"><img src="__PUBLIC__/assets/images/red_tel_02.jpg" alt=""></a>-->
+        </div>
+    </div>
+<php>
+if(isset($_REQUEST['time1']) && $_REQUEST['time1'] != ''&&isset($_REQUEST['time2']) && $_REQUEST['time2'] != ''){ 
+$map['shijian'] =array(array('egt',I('time1').' 00:00:00'),array('elt',I('time2').' 59:59:59'));
+$map1['addtime'] =array(array('egt',I('time1').' 00:00:00'),array('elt',I('time2').' 59:59:59'));
+$qujian=I('time1').'-'.I('time2');
+}else{
+$map['shijian'] =array(array('egt',date("Y-m-d",time()).' 00:00:00'),array('elt',date("Y-m-d",time()).' 59:59:59'));
+$map1['addtime'] =array(array('egt',date("Y-m-d",time()).' 00:00:00'),array('elt',date("Y-m-d",time()).' 59:59:59'));
+$qujian=date("Y-m-d",time()).' 00:00:00 -'.date("Y-m-d H:m:s",time());
+}
+$where['shopid']=array("eq",$Rs['id']);
+$map1['_complex'] = $where;
+</php>
+    <div class="wscon_list1">
+        <div class="top">
+            <div class="lcon">
+                <a href="#"><img class="ico" src="__PUBLIC__/assets/images/ws_userico_red.jpg" alt=""></a>
+                <div class="rtxt">
+                    <p class="c">现金收入：<span class="red"><php>$yingyee=M('zijin')->where($map1)->sum('xianjin');echo $yingyee/1;</php></span></p>
+					<p class="c">银联收入：<span class="red"><php>$fukuan=M('zijin')->where($map1)->sum('pos');echo $fukuan/1;</php></span></p>
+                </div>
+            </div>
+            <a class="join red">提成:<php>$ticheng=M('ticheng')->where($map1)->sum('jine');echo $ticheng/1;</php></a>
+        </div>
+        <div class="clist">
+            <p class="tit">明细记录</p>
+            <ul class="redul">
+                <li class="on"><div class="c"><span class="t">现金</span><span class="time"><php>$xianjin=M('zijin')->where($map1)->sum('xianjin');echo $xianjin/1;</php></span></div></li>
+				<li class="on"><div class="c"><span class="t">银联</span><span class="time"><php>$pos=M('zijin')->where($map1)->sum('pos');echo $pos/1;</php></span></div></li>
+				<li class="on"><div class="c"><span class="t">卡付</span><span class="time"><php>$yue=M('zijin')->where($map1)->sum('yue');echo $yue/1;</php></span></div></li>
+				<li class="on"><div class="c"><span class="t">赠送</span><span class="time"><php>$song=M('zijin')->where($map1)->sum('song');echo $song/1;</php></span></div></li>
+				<li><div class="c"><span class="t">优惠</span><span class="time"><php>$jian=M('zijin')->where($map1)->sum('jian');echo $jian/1;</php></span></div></li>
+                <li><div class="c"><span class="t">费用支出</span><span class="time"><php>echo $fukuan/1;</php></span></div></li>
+				<li><div class="c"><span class="t">顾问提成</span><span class="time"><php>echo $ticheng/1;</php></span></div></li>
+            </ul>
+        </div>
+    </div>
+</div>  
+
+</block>

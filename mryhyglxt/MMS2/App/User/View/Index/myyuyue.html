@@ -1,0 +1,26 @@
+<extend name="base" />
+<block name="main">
+
+
+
+<div class="orderDet_list2">
+        <dl>
+            <dt>预约记录</dt>
+			<volist id="v" name="list">
+			 <dd>
+                <span class="current"></span>
+                <strong>
+                    <b>{$v.title}</b>
+					会员：{$v.xingming}<Br/>
+                    时间：{$v.yytime}<br/>
+					添加：{$v.addtime}
+                </strong>
+            </dd>
+
+         </volist>
+           
+            
+        </dl>
+ </div>
+
+</block>

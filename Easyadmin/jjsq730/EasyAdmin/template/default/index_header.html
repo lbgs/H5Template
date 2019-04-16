@@ -1,0 +1,42 @@
+<div class="header">
+  <div class="main">
+    <a class="logo" href="{:url('index/index')}" title="{$site_config['site_title']}">{$site_config['site_title']}</a>
+    <div class="nav">
+    
+    {volist name="nav" id="vo" }
+    {eq name="vo.pid" value="1"}
+      <a class="nav-this" href="{$vo.link|getnavlink=$vo.sid}" target="{$vo.target}" title="{$vo.alias}">
+        <i class="iconfont icon-{$vo.icon}"></i>{$vo.name}
+      </a>
+      {/eq}
+    {/volist}
+    </div>
+    
+    <div class="nav-user">
+    
+  {if condition="$Think.session.userid neq ''"}
+     <!-- 登入后的状态 -->
+     
+      <a class="avatar" href="{:url('user/home',array('id'=>$Think.session.userid))}">
+        <img src="__ROOT__{$Think.session.userhead}">
+        <cite>{$Think.session.username}</cite>
+        <i>{$Think.session.grades|getgradenamebyid}</i>
+      </a>
+      <div class="nav">
+        <a href="{:url('user/set')}"  ><i class="iconfont icon-shezhi"></i>设置</a>
+        <a data-url="{:url('login/logout')}" location-url="{:url('index/login')}"  href="javascript:void(0)" class="logi_logout"><i class="iconfont icon-tuichu" style="top: 0; font-size: 22px;"></i>退了</a>
+      </div>
+  
+{else /}
+          <!-- 未登入状态 -->
+      <a class="unlogin"  href="{:url('index/login')}"><i class="iconfont icon-touxiang"></i></a>
+      <span style="display: inline-block;position: relative;top: -2px;left: auto;right: 0; vertical-align: middle;"><a href="{:url('index/login')}">登入</a><a href="{:url('login/reg')}">注册</a></span>
+      <p class="out-login" style="display:none">
+        <a href="" onclick="layer.msg('正在通过QQ登入', {icon:16, shade: 0.1, time:0})" class="iconfont icon-qq" title="QQ登入"></a>
+        <a href="" onclick="layer.msg('正在通过微博登入', {icon:16, shade: 0.1, time:0})" class="iconfont icon-weibo" title="微博登入"></a>
+      </p>   
+       {/if}
+
+    </div>
+  </div>
+</div>

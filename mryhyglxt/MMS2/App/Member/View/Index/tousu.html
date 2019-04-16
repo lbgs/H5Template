@@ -1,0 +1,39 @@
+<extend name="base" />
+<block name="main">
+<div class="proMan_list1" style="background: #fff;">
+        <form  action="{:U('index/tousu')}" id="login_form" method="post">
+		<input type="hidden" name="hid" value="{$Rs.id}">
+		<input type="hidden" name="shopid" value="{$Rs.shopid}">
+		<input type="hidden" name="addtime" value='<php>echo date("Y-m-d H:i:s",time())</php>'>
+<Table width="100%">
+<Tr><Td width="100">姓名:</td><td><input type='text'  name='xingming'  readonly   value='{$Rs.xingming}'  ></td></tr>
+<Tr><Td width="100">卡号:</td><td><input type='text'  name='kahao'  readonly   value='{$Rs.kahao}'  ></td></tr>
+<Tr><Td>投诉详情:</td><td><input type='text'  name='content'    value='{$Rs.content}'  ></td></tr>
+<Tr><Td>图片上传:</td><td><div class="span12 border-radius-none" style='display: inline-block; vertical-align: middle;'><IFRAME   src='__MODULE__/Public/attfile/attid/{$attid}/'  frameBorder=0 width='100%' height='30' scrolling=no ></IFRAME><input type='hidden' id='attid' name='attid'  value='{$attid}'  ></div></td></tr>
+<Tr><Td></td><td><button class="btn" type="submit">提交</button></td></tr>
+</table>
+</form>
+</div>
+
+<div class="orderDet_list2">
+        <dl>
+            <dt>投诉处理</dt>
+			<volist id="v" name="list">
+			 <dd>
+                <span class="current"></span>
+                <strong>
+                    <b>{$v.content}</b>
+                    处理结果：{$v.beizhu}<Br/>
+                    处理时间：{$v.updatetime}<Br/>
+					投诉时间：{$v.addtime}
+                </strong>
+            </dd>
+
+         </volist>
+           
+            
+        </dl>
+ </div>
+
+
+</block>

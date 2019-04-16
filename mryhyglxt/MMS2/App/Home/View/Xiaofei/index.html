@@ -1,0 +1,90 @@
+<div class="bjui-pageHeader">
+<form id="pagerForm" data-toggle="ajaxsearch" action="__URL__" method="post">
+	
+	<input type="hidden" name="pageSize" value="{$numPerPage}">
+    <input type="hidden" name="pageCurrent" value="{$_REQUEST['pageNum']|default=1}">
+	 
+        <div class="bjui-searchBar">
+            <label>关键词：</label><input type="text" value="{$_REQUEST['keys']}" name="keys" class="form-control" size="12" />
+				<label>消费时间：</label><input type='text' data-toggle='datepicker' value='{$_REQUEST['time1']}' name='time1' class='form-control' size='12' />-<input type='text' data-toggle='datepicker' value='{$_REQUEST['time2']}' name='time2' class='form-control' size='12' />&nbsp;<label>消费类型：</label><select name='type' data-toggle='selectpicker'><option value=''>全部</option><foreach name='typelist' item='v'><option value='{$v.type}'  <if condition="$v.type EQ $_REQUEST['type']">selected<else/>{$_REQUEST['type']}</if> >{$v.type}</option></foreach></select>&nbsp;
+				<php>if(session('iszb')=='是'){</php>
+			<label>所属店铺：</label>
+			<select  name="shopid" data-toggle="selectpicker" >
+             <option  value="">全部</option>
+			 <php>$slist=M('shop')->select();</php>
+	         <foreach name="slist" item="v">
+             <option <if condition="$v.id EQ $_REQUEST['shopid'] ">selected value="{$_REQUEST['shopid']}" <else/>value="{$v.id}"</if> >
+	         <switch name="v.level">  <case value="0">+</case> <case value="1">+--</case><case value="2">+------</case><default /></switch>
+	         {$v.title}
+	          </option>
+              </foreach>
+             </select>
+			 <php>}</php>
+             <button type="submit"  class="btn-default" data-icon="search">查询</button>
+              <a class="btn btn-orange" href="javascript:;" onclick="$(this).navtab('reloadForm', true);" data-icon="undo">清空查询</a>
+			  <php>if(display(CONTROLLER_NAME.'/del')){</php><span style="float:right;" ><a href="__URL__/del/navTabId/{:CONTROLLER_NAME}" class="btn btn-red" data-toggle="doajax" data-confirm-msg="确定要清理吗？" data-icon="remove">清理</a></span> <php>}</php>
+			  <php>if(display(CONTROLLER_NAME.'/outxls')){</php><span style="float:right;margin-right:5px;"><a href="__URL__/outxls" class="btn btn-blue" data-toggle="doexport" data-confirm-msg="确定要导出吗？" data-icon="arrow-up">导出</a></span><php>}</php>
+			  <php>if(display(CONTROLLER_NAME.'/add')){</php><span style="float:right;margin-right:5px;"><a href="__URL__/add/navTabId/{:CONTROLLER_NAME}" class="btn btn-green" data-toggle="dialog" data-width="900" data-height="500" data-id="dialog-mask" data-mask="true" data-icon="plus">新增</a></span><php>}</php>
+		</div> 
+</form>
+    
+</div>
+<div class="bjui-pageContent tableContent">
+     <table data-toggle="tablefixed" data-width="100%" data-layout-h="0" data-nowrap="true">
+        <thead>
+            <tr>
+            <th width="10" height="30"></th>
+            <th data-order-direction='desc' data-order-field='id'>ID</th>
+<th data-order-direction='desc' data-order-field='danhao'>订单编号</th>
+<th>会员姓名</th>
+<th>会员卡号</th>
+<th data-order-direction='desc' data-order-field='type'>消费类型</th>
+<th>消费内容</th>
+<th data-order-direction='desc' data-order-field='jine'>消费金额</th>
+<th data-order-direction='desc' data-order-field='jian'>优惠金额</th>
+<th data-order-direction='desc' data-order-field='fukuan'>实际付款</th>
+<php>if(session('iszb')=='是'){</php><th data-order-direction='desc' data-order-field='shopid'>消费店铺</th><php>}</php>
+<th>操作人</th>
+<th data-order-direction='desc' data-order-field='addtime'>消费时间</th>
+<php>if(display(CONTROLLER_NAME.'/view')){</php><th width="40">详细</th><php>}</php>
+<php>if(display(CONTROLLER_NAME.'/dayin')){</php><th>打印</th><php>}</php>
+<php>if(display(CONTROLLER_NAME.'/chedan')){</php><th>撤单</th><php>}</php>
+
+            </tr>
+        </thead>
+        <tbody>
+
+          <volist id="v" name="list">
+          <tr>
+		   <td></td>
+		   <td>{$v.id}</td>
+<td>{$v.danhao}</td>
+<td>{$v.xingming|msubstr=###,0,20}</td>
+<td>{$v.kahao|msubstr=###,0,20}</td>
+<td>{$v.type}</td>
+<td>{$v.title|msubstr=###,0,40}</td>
+<td>{$v.jine}</td>
+<td>{$v.jian}</td>
+<td>{$v.fukuan}</td>
+<php>if(session('iszb')=='是'){</php><td>{$v.shopid|get_shop_name=###}</td><php>}</php>
+<td>{$v.uname|msubstr=###,0,20}</td>
+<td>{$v.addtime}</td>
+<php>if(display(CONTROLLER_NAME.'/view')){</php><td><a href="__URL__/view/id/{$v['id']}/navTabId/{:CONTROLLER_NAME}"  data-toggle="dialog" data-width="900" data-height="500" data-id="dialog-mask" data-mask="true" >详细</a></td><php>}</php>
+<php>if(display(CONTROLLER_NAME.'/dayin')){</php><td>
+		   <a href="__URL__/dayin/id/{$v['id']}/navTabId/{:CONTROLLER_NAME}" class="btn btn-green btn-sm"  target="_blank" >打印</a>
+		   </td><php>}</php>
+<php>if(display(CONTROLLER_NAME.'/chedan')){</php><td>
+		   <a href="__URL__/chedan/id/{$v['id']}/navTabId/{:CONTROLLER_NAME}" class="btn btn-red btn-sm" data-toggle="doajax" data-confirm-msg="撤单后不可恢复！确定要撤单吗？" >撤单</a>
+		   </td><php>}</php>
+         </tr> 
+          </volist>
+        </tbody>
+    </table>
+</div>
+<div class="bjui-pageFooter">
+        <div class="pages">
+            <span>共 {$totalCount} 条  每页 {$numPerPage} 条</span>
+        </div>
+	    <div class="pagination-box" data-toggle="pagination" data-total="{$totalCount}" data-page-size="{$numPerPage}" data-page-current="{$currentPage}">
+        </div>
+</div>

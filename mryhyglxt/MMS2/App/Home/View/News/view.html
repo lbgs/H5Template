@@ -1,0 +1,19 @@
+<div class="bjui-pageContent tableContent">
+        <div class="pageFormContent" data-layout-h="0">
+          <table class="table table-bordered table-striped table-hover">
+           <tbody>
+		   <tr><td><label for='id_input' class='control-label x85'>ID:</label>{$Rs.id}</td><td><label for='fenlei_input' class='control-label x85'>分类:</label>{$Rs.fenlei}</td></tr>
+<tr><td><label for='title_input' class='control-label x85'>标题:</label>{$Rs.title}</td><td><label for='hits_input' class='control-label x85'>浏览次数:</label>{$Rs.hits}</td></tr>
+<tr><td><label for='uname_input' class='control-label x85'>添加人:</label>{$Rs.uname}</td><td><label for='addtime_input' class='control-label x85'>添加时间:</label>{$Rs.addtime}</td></tr>
+<tr><td><label for='uuname_input' class='control-label x85'>更新人:</label>{$Rs.uuname}</td><td><label for='updatetime_input' class='control-label x85'>更新时间:</label>{$Rs.updatetime}</td></tr>
+<tr></tr>
+<tr><td colspan=2><label for='content_input' class='control-label x85'>详情:</label><div style='display: inline-block; vertical-align: middle;'>{$Rs.content|html_out=###}</div></td></tr>
+           </tbody>
+          </table>
+        </div>
+</div>
+<div class="bjui-pageFooter">
+    <ul>
+       <li><button type="button" class="btn-close" data-icon="close">关闭</button></li>
+    </ul>
+</div>

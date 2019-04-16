@@ -1,0 +1,82 @@
+<div class="bjui-pageHeader">
+<form id="pagerForm" data-toggle="ajaxsearch" action="__URL__" method="get">
+	<input type="hidden" name="pageSize" value="{$numPerPage}">
+    <input type="hidden" name="pageCurrent" value="{$_REQUEST['pageNum']|default=1}">
+        <div class="bjui-searchBar">
+			<label>时间：</label><input type='text' data-toggle='datepicker' value='{$_REQUEST['time1']}' name='time1' class='form-control' size='12' />-<input type='text' data-toggle='datepicker' value='{$_REQUEST['time2']}' name='time2' class='form-control' size='12' />&nbsp;
+			<php>if(session('iszb')=='是'){</php>
+			<label>所属店铺：</label>
+			<select  name="shopid" data-toggle="selectpicker" >
+             <option  value="">全部</option>
+			 <php>$slist=M('shop')->select();</php>
+	         <foreach name="slist" item="v">
+             <option <if condition="$v.id EQ $_REQUEST['shopid'] ">selected value="{$_REQUEST['shopid']}" <else/>value="{$v.id}"</if> >
+	         <switch name="v.level">  <case value="0">+</case> <case value="1">+--</case><case value="2">+------</case><default /></switch>
+	         {$v.title}
+	          </option>
+              </foreach>
+             </select>
+			 <php>}</php>
+             <button type="submit"  class="btn-default" data-icon="search">查询</button>
+             <a class="btn btn-orange" href="javascript:;" onclick="$(this).navtab('reloadForm', true);" data-icon="undo">清空查询</a>
+		</div> 
+</form>
+    
+</div>
+<div class="bjui-pageContent tableContent" style="padding:8px;">
+    <!--//--> 
+                   <div class="col-md-12">
+                    <div class="panel panel-default">
+                          <div class="panel-heading"><h3 class="panel-title"><i class="fa fa-leaf"></i> 经营业务增长趋势 </h3></div>
+                            <div style="min-height:185px">
+							<img src="{:U('fxcaiwu/shuliang',array('keys'=>$_REQUEST['keys'],'time1'=>$_REQUEST['time1'],'time2'=>$_REQUEST['time2'],'shopid'=>$_REQUEST['shopid'],'juname'=>$_REQUEST['juname']))}">
+						    <Br/><img src="{:U('fxcaiwu/jine',array('keys'=>$_REQUEST['keys'],'time1'=>$_REQUEST['time1'],'time2'=>$_REQUEST['time2'],'shopid'=>$_REQUEST['shopid'],'juname'=>$_REQUEST['juname']))}">
+							<br/><img src="{:U('fxcaiwu/xianjin',array('keys'=>$_REQUEST['keys'],'time1'=>$_REQUEST['time1'],'time2'=>$_REQUEST['time2'],'shopid'=>$_REQUEST['shopid'],'juname'=>$_REQUEST['juname']))}">
+							<Br/><img src="{:U('fxcaiwu/pos',array('keys'=>$_REQUEST['keys'],'time1'=>$_REQUEST['time1'],'time2'=>$_REQUEST['time2'],'shopid'=>$_REQUEST['shopid'],'juname'=>$_REQUEST['juname']))}">
+						    <br/><img src="{:U('fxcaiwu/yue',array('keys'=>$_REQUEST['keys'],'time1'=>$_REQUEST['time1'],'time2'=>$_REQUEST['time2'],'shopid'=>$_REQUEST['shopid'],'juname'=>$_REQUEST['juname']))}">
+						 </div>
+                        </div>
+                      </div>
+                    <!--//--> 
+                    <div class="col-md-6">
+                    <div class="panel panel-default">
+                          <div class="panel-heading"><h3 class="panel-title"><i class="fa fa-volume-up"></i>  费用支出类型 </h3></div>
+                            <div style="min-height:185px">
+							<img src="{:U('fxcaiwu/leixing',array('keys'=>$_REQUEST['keys'],'time1'=>$_REQUEST['time1'],'time2'=>$_REQUEST['time2'],'shopid'=>$_REQUEST['shopid'],'juname'=>$_REQUEST['juname']))}">
+						  </div>
+                        </div>
+                      </div>
+                      <!--//--> 
+                      <div class="col-md-6">
+                        <div class="panel panel-default">
+                          <div class="panel-heading"><h3 class="panel-title"><i class="fa fa-phone-square"></i>  业务员提成占比分析 </h3></div>
+                            <div style="min-height:185px">
+							<img src="{:U('fxcaiwu/juname',array('keys'=>$_REQUEST['keys'],'time1'=>$_REQUEST['time1'],'time2'=>$_REQUEST['time2'],'shopid'=>$_REQUEST['shopid'],'juname'=>$_REQUEST['juname']))}">
+						  </div>
+                        </div>
+                      </div>
+                      <!--//--> 
+                      <div class="col-md-12">
+                        <div class="panel panel-default">
+                          <div class="panel-heading"><h3 class="panel-title"><i class="fa fa-user-md"></i>  业务提成增长趋势 </h3></div>
+                            <div style="min-height:185px">
+							<img src="{:U('fxcaiwu/ticheng',array('keys'=>$_REQUEST['keys'],'time1'=>$_REQUEST['time1'],'time2'=>$_REQUEST['time2'],'shopid'=>$_REQUEST['shopid'],'juname'=>$_REQUEST['juname']))}">
+						  </div>
+                        </div>
+                      </div>
+                      <!--//--> 
+                      <div class="col-md-12">
+                        <div class="panel panel-default">
+                          <div class="panel-heading"><h3 class="panel-title"><i class="fa fa-user-md"></i>  费用支出增长趋势 </h3></div>
+                            <div style="min-height:185px">
+							<img src="{:U('fxcaiwu/fukuan',array('keys'=>$_REQUEST['keys'],'time1'=>$_REQUEST['time1'],'time2'=>$_REQUEST['time2'],'shopid'=>$_REQUEST['shopid'],'juname'=>$_REQUEST['juname']))}">
+						  </div>
+                        </div>
+                      </div>
+                      <!--//--> 					  
+</div>
+<div class="bjui-pageFooter">
+    <ul>
+       <li><button type="button" class="btn-close" data-icon="close">关闭</button></li>
+    </ul>
+</div>

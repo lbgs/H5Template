@@ -1,0 +1,64 @@
+
+			 <script>
+			 layui.use(['form', 'upload', 'element'],function(){
+				  var form = layui.form()
+				  ,jq = layui.jquery;
+
+				  jq('.attach').each(function(){
+					  
+					  var html=jq(this).html();
+					
+					  var score=jq(this).attr('score');
+					  var md5=jq(this).attr('id');
+					  var zuid=jq('#zuozhename').data('id');
+					  var uid="{:session('userid')}";
+					  
+					var obj=this;
+					       var infourl="{:addons_url('attach://Attach/info',array(),true)}";
+					       jq.post(infourl,{md5:md5},function(data){
+					    	   
+					    	  html+="<p style='font-size:12px;color:gray'>[售价:"+score+"积分,下载次数:"+data.info.download+"]</p>";
+					    	  
+					    	  jq(obj).html(html);
+					       }); 
+					      
+					
+						var url="{:addons_url('attach://Attach/download',array(),true)}";
+						  jq(this).click(function(){
+
+							  if(uid>0){
+							  
+							     jq.post(url,{score:score,md5:md5,uid:uid,zuid:zuid},function(data){
+							     	
+							         if(data.code == 200){
+							        	if(data.local==1){
+							        		 var downurl="{:url('index/download')}?url="+data.path+"&name="+data.name+"&local="+data.local;
+							        	}else{
+							        		//var downurl="{:url('index/download')}?url="+data.path+"&name="+data.name+"&local="+data.local;
+							        		var downurl=data.path;
+							        	}
+							        	
+							        	 location.href=downurl;
+							        	
+							           layer.msg(data.msg, {icon: 1, time: 1000}, function(){
+							           
+							           });
+							         }else{
+							          
+							           layer.msg(data.msg, {icon: 2, anim: 6, time: 1000});
+							         }
+							       }); 
+							  }else{
+									layer.msg('请先登录', {icon: 2, anim: 6, time: 1000});  
+								} 
+							       
+							  
+						  });
+					      
+					
+	
+					
+				  });
+				  
+			  }); 
+			 </script>

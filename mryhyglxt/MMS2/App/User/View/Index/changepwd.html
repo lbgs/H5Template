@@ -1,0 +1,17 @@
+<extend name="base" />
+<block name="main">
+<div class="profile" style="background: #fff;">
+<form  action="{:U('index/changepwd')}" id="login_form" method="post">
+		<input type="hidden" name="id" value="{$id}">
+<Table width="100%">
+<Tr><Td>用户名:</td><td><input type='text'  name='username'  readonly   value='{$Rs.username}'  ></td></tr>
+<Tr><Td>原密码:</td><td><input type='text'  name='ypwd'   value=''  ></td></tr>
+<Tr><Td>新密码:</td><td><input type='text'  name='password'   value=''  ></td></tr>
+<Tr><Td>确认新密码:</td><td><input type='text'  name='xxpwd'  value=''  ></td></tr>
+<Tr><Td></td><td><button class="btn" type="submit">提交</button></td></tr>
+</table>
+</form>
+    </div>
+
+
+</block>

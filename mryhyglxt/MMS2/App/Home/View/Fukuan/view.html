@@ -1,0 +1,46 @@
+<div class="bjui-pageContent tableContent">
+        <div class="pageFormContent" style="margin:1px;" data-layout-h="0">
+		          <ul class="nav nav-tabs" role="tablist">
+                   <li class="active"><a href="#fukuan" role="tab" data-toggle="tab">支出记录</a></li>
+					<li><a href='#shenhe38' role='tab' data-toggle='tab'>支出审核</a></li>
+                  </ul>
+		 <div class="tab-content" style="border:0">
+           <div class="tab-pane fade active in" id="fukuan"><table class="table table-bordered table-striped table-hover">
+           <tbody>
+		   <tr><td><label for='id_input' class='control-label x85'>ID:</label>{$Rs.id}</td><td><label for='shopid_input' class='control-label x85'>所在店铺:</label>{$Rs.shopid|get_shop_name=###}</td></tr>
+<tr><td><label for='title_input' class='control-label x85'>标题:</label>{$Rs.title}</td><td><label for='leixing_input' class='control-label x85'>支出类型:</label>{$Rs.leixing}</td></tr>
+<tr><td><label for='type_input' class='control-label x85'>付款方式:</label>{$Rs.type}</td><td><label for='jine_input' class='control-label x85'>支出金额:</label>{$Rs.jine}</td></tr>
+<tr><td><label for='jingban_input' class='control-label x85'>经办人:</label>{$Rs.jingban}</td><td><label for='shenheren_input' class='control-label x85'>审核人:</label>{$Rs.shenheren}</td></tr>
+<tr><td><label for='shenhe_input' class='control-label x85'>审核状态:</label>{$Rs.shenhe}</td><td><label for='uname_input' class='control-label x85'>添加人:</label>{$Rs.uname}</td></tr>
+<tr><td><label for='addtime_input' class='control-label x85'>添加时间:</label>{$Rs.addtime}</td><td><label for='uuname_input' class='control-label x85'>更新人:</label>{$Rs.uuname}</td></tr>
+<tr><td><label for='updatetime_input' class='control-label x85'>更新时间:</label>{$Rs.updatetime}</td></tr>
+<tr><td colspan=2><label for='beizhu_input' class='control-label x85'>备注详情:</label><div style='display: inline-block; vertical-align: middle;'>{$Rs.beizhu}</div></td></tr></tr>
+<tr><td colspan=2><label for='attid_input' class='control-label x85'>上传附件:</label>
+			<php>$attlist=M('files')->where('attid='.$Rs['attid'].' and status=1')->select();</php>	
+	        <foreach name='attlist' item='vf'>{$vf['uid']|truename=###}:<a href='__ROOT__/{$vf['folder']}{$vf['filename']}' target=_blank>{$vf['filedesc']}</A>&nbsp;&nbsp;{$vf['addtime']}<Br/><label  class='control-label x85'></label></foreach></td></tr>
+           </tbody>
+          </table>
+		  </div>
+		  
+		 <div class='tab-pane fade' id='shenhe38'>
+		 <table class='table table-bordered table-striped table-hover'><php>$shenhelist=M('shenhe')->where(array('xid'=>$Rs['id'],'type'=>CONTROLLER_NAME))->limit(100)->select();</php> <thead> <tr><th>ID</th>
+<th height=30>审核结果</th>
+<th height=30>审核意见</th>
+<th height=30>审核人</th>
+<th>审核时间</th>
+</tr></thead><tbody><foreach name='shenhelist' item='shenhev'><tr><td>{$shenhev.id}</td>
+<td>{$shenhev.title|msubstr=###,0,20}</td>
+<td>{$shenhev.content|msubstr=###,0,20}</td>
+<td>{$shenhev.uname|msubstr=###,0,20}</td>
+<td>{$shenhev.addtime}</td>
+</tr> </foreach> </tbody> </table>
+		 </div>
+		   
+		 </div>
+        </div>
+</div>
+<div class="bjui-pageFooter">
+    <ul>
+       <li><button type="button" class="btn-close" data-icon="close">关闭</button></li>
+    </ul>
+</div>

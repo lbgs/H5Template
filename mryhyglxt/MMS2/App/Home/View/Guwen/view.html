@@ -1,0 +1,26 @@
+<div class="bjui-pageContent tableContent">
+        <div class="pageFormContent" data-layout-h="0">
+          <table class="table table-bordered table-striped table-hover">
+           <tbody>
+		   <tr><td><label for='id_input' class='control-label x85'>ID:</label>{$Rs.id}</td><td><label for='shopid_input' class='control-label x85'>所在店铺:</label>{$Rs.shopid|get_shop_name=###}</td></tr>
+<tr><td><label for='gonghao_input' class='control-label x85'>工号:</label>{$Rs.gonghao}</td><td><label for='xingming_input' class='control-label x85'>姓名:</label>{$Rs.xingming}</td></tr>
+<tr><td><label for='zhicheng_input' class='control-label x85'>职称:</label>{$Rs.zhicheng}</td><td><label for='techang_input' class='control-label x85'>特长:</label>{$Rs.techang}</td></tr>
+<tr></tr>
+<tr><td><label for='yycs_input' class='control-label x85'>预约次数:</label>{$Rs.yycs}</td><td><label for='manyi_input' class='control-label x85'>满意度:</label>{$Rs.manyi}</td></tr>
+<tr></tr>
+<tr><td><label for='uname_input' class='control-label x85'>添加人:</label>{$Rs.uname}</td><td><label for='addtime_input' class='control-label x85'>添加时间:</label>{$Rs.addtime}</td></tr>
+<tr><td><label for='uuname_input' class='control-label x85'>更新人:</label>{$Rs.uuname}</td><td><label for='updatetime_input' class='control-label x85'>更新时间:</label>{$Rs.updatetime}</td></tr>
+<tr></tr>
+<tr><td colspan=2><label for='content_input' class='control-label x85'>个人介绍:</label><div style='display: inline-block; vertical-align: middle;'>{$Rs.content}</div></td></tr></tr>
+<tr><td colspan=2><label for='attid_input' class='control-label x85'>上传照片:</label>
+			<php>$attlist=M('files')->where('attid='.$Rs['attid'].' and status=1')->order('id desc')->select();</php>	
+	         <foreach name='attlist' item='vf'>{$vf['uid']|truename=###}:<a href='__ROOT__/{$vf['folder']}{$vf['filename']}' target=_blank>{$vf['filedesc']}</A>&nbsp;&nbsp;{$vf['addtime']}<Br/><label  class='control-label x85'></label></foreach></td></tr>
+           </tbody>
+          </table>
+        </div>
+</div>
+<div class="bjui-pageFooter">
+    <ul>
+       <li><button type="button" class="btn-close" data-icon="close">关闭</button></li>
+    </ul>
+</div>

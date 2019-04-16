@@ -1,0 +1,23 @@
+<extend name="base" />
+<block name="main">
+<div class="profile" style="background: #fff;">
+<form  action="{:U('index/info')}" id="login_form" method="post">
+		<input type="hidden" name="id" value="{$id}">
+<Table width="100%">
+<Tr><Td>卡号:</td><td><input type='text'  name='kahao'  readonly   value='{$Rs.kahao}'  ></td></tr>
+<Tr><Td>姓名:</td><td><input type='text'  name='xingming' readonly  value='{$Rs.xingming}'  ></td></tr>
+<Tr><Td>性别:</td><td><select name="sex">
+                <option value="{$Rs['sex']}" selected>{$Rs['sex']}</option>
+				<option value="男">男</option>
+                <option value="女">女</option>
+                 </select></td></tr>
+<Tr><Td>手机号码:</td><td><input type='text'  name='dianhua'   value='{$Rs.dianhua}'  ></td></tr>
+<Tr><Td>身份证号:</td><td><input type='text'  name='sfz'  value='{$Rs.sfz}'  ></td></tr>
+<Tr><Td>联系地址:</td><td><input type='text'  name='dizhi'  value='{$Rs.dizhi}'  ></td></tr>
+<Tr><Td></td><td><button class="btn" type="submit" style="width:40%">提交</button><a href="{:U('index/index')}" >暂不更新，跳过</a></td></tr>
+</table>
+</form>
+    </div>
+
+
+</block>

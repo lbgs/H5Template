@@ -1,0 +1,43 @@
+/*顶部样式*/
+#header { margin:0;padding:0;height:57px; border-bottom:3px solid #0275C7;background-color:#0275C7;}
+#header .con { height:57px;background-color:#0275C7;}
+#info {
+	line-height:57px;
+	padding-right:10px;
+	height:57px;
+	float:right;
+	color: #FFFFFF;
+}
+#info a{
+	line-height:57px;
+	height:57px;
+	color: #FFFFFF;
+	text-decoration: none;
+}
+#logo { position:absolute; top:0; left:0; background:url(../images/logo2.png) no-repeat; width:300px; height:57px;}
+#logo a { display:block; text-indent:-9999px; overflow:hidden; height:60px; width:300px;}
+#sendRequestContent {float:left; padding-left:20px;height:57px;line-height:57px;}
+#sendRequestContent a { padding-right:5px;}
+
+/*导航菜单*/
+#menu { margin-left:300px;top:0; font-size:14px; font-weight:bold; color:#666666;background-color:#3391D4;}
+#menu ul { height:60px; overflow:hidden; float:left;}
+#menu li { float: left; height:60px; }
+#menu a {
+	display:block;
+	height:60px;
+	line-height:60px;
+	font-size:16px;
+	color:#FFFFFF;
+	width:95px;
+	text-align:center;
+	font-weight: normal;
+}
+#menu a:hover{ text-decoration:none; background-color:#025794;font-size:16px; color:#FFFFFF;border-top:0px;}
+#menu a.active{
+	text-decoration:none;
+	background-color:#025794;
+	font-size:16px;
+	color:#FFFFFF;
+	font-weight: bold;
+}

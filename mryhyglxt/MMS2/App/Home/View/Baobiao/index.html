@@ -1,0 +1,94 @@
+<div class="bjui-pageHeader">
+<form id="pagerForm" data-toggle="ajaxsearch" action="__URL__" method="get">
+	<input type="hidden" name="pageSize" value="{$numPerPage}">
+    <input type="hidden" name="pageCurrent" value="{$_REQUEST['pageNum']|default=1}">
+        <div class="bjui-searchBar">
+			<label>时间：</label><input type='text' data-toggle='datepicker' value='{$_REQUEST['time1']}' name='time1' class='form-control' size='12' />
+			<php>if(session('iszb')=='是'){</php>
+			<label>所属店铺：</label>
+			<select  name="shopid" data-toggle="selectpicker" >
+             <option  value="">全部</option>
+			 <php>$slist=M('shop')->select();</php>
+	         <foreach name="slist" item="v">
+             <option <if condition="$v.id EQ $_REQUEST['shopid'] ">selected value="{$_REQUEST['shopid']}" <else/>value="{$v.id}"</if> >
+	         <switch name="v.level">  <case value="0">+</case> <case value="1">+--</case><case value="2">+------</case><default /></switch>
+	         {$v.title}
+	          </option>
+              </foreach>
+             </select>
+			 <php>}</php>
+             <button type="submit"  class="btn-default" data-icon="search">查询</button>
+             <a class="btn btn-orange" href="javascript:;" onclick="$(this).navtab('reloadForm', true);" data-icon="undo">清空查询</a>
+			 <php>if(display(CONTROLLER_NAME.'/dayin')){</php><span style="float:right;margin-right:5px;"><a href="{:U('Baobiao/dayin',array('time1'=>$_REQUEST['time1'],'shopid'=>$_REQUEST['shopid']))}" target="_blank" class="btn btn-blue" data-icon="print">打印</a></span><php>}</php>
+		</div> 
+</form>
+    
+</div>
+<php>
+if(isset($_REQUEST['time1']) && $_REQUEST['time1'] != ''){
+  $riqi=substr($_REQUEST['time1'],0,7);
+  $nian=substr($_REQUEST['time1'],0,4);
+  $chaxun=substr($_REQUEST['time1'],0,10);
+  }else{
+  $riqi=date("Y-m",time());
+  $nian=date("Y",time());
+  $chaxun=date("Y-m-d",time());
+}
+if(session('iszb')=='是'){
+  if(isset($_REQUEST['shopid']) && $_REQUEST['shopid'] != ''){
+ $map=" and shopid=".I('shopid')." ";
+ $shopname=get_shop_name($_REQUEST['shopid']);
+}else{
+ $shopname='全部店铺';
+ }
+}else{
+ $map=" and shopid=".session('shopid')." ";
+ $shopname=get_shop_name(session('shopid'));
+
+}
+$yueyingyee=M('zijin')->where("addtime like '%".$riqi."%' and (type<>'充值' and type<>'退款') ".$map)->sum('jine');
+$nianyingyee=M('zijin')->where("addtime like '%".$nian."%' and (type<>'充值' and type<>'退款') ".$map)->sum('jine');
+$yingyee=M('zijin')->where("id<>0 and (type<>'充值' and type<>'退款') ".$map)->sum('jine');
+$yueqtsr=M('shou')->where("addtime like '%".$riqi."%'  ".$map)->sum('jine');
+$nianqtsr=M('shou')->where("addtime like '%".$nian."%' ".$map)->sum('jine');
+$qtsr=M('shou')->where("id<>0 ".$map)->sum('jine');
+$yueticheng=M('ticheng')->where("addtime like '%".$riqi."%' ".$map)->sum('jine');
+$nianticheng=M('ticheng')->where("addtime like '%".$nian."%' ".$map)->sum('jine');
+$ticheng=M('ticheng')->where("id<>0 ".$map)->sum('jine');
+$yuezhichu=M('fukuan')->where("addtime like '%".$riqi."%' ".$map)->sum('jine');
+$nianzhichu=M('fukuan')->where("addtime like '%".$nian."%' ".$map)->sum('jine');
+$zhichu=M('fukuan')->where("id<>0 ".$map)->sum('jine');
+$yuemaoli=$yueyingyee+$yueqtsr-$yueticheng-$yuezhichu;
+$nianmaoli=$nianyingyee+$nianqtsr-$nianticheng-$nianzhichu;
+$maoli=$yingyee+$qtsr-$ticheng-$zhichu;
+$yuehysl=M('huiyuan')->where("addtime like '%".$riqi."%' ".$map)->count('id');
+$nianhysl=M('huiyuan')->where("addtime like '%".$nian."%' ".$map)->count('id');
+$hysl=M('huiyuan')->where("id<>0 ".$map)->count('id');
+$yuejine=M('zijin')->where("addtime like '%".$riqi."%' and type='充值' ".$map)->sum('jine');
+$nianjine=M('zijin')->where("addtime like '%".$nian."%' and type='充值' ".$map)->sum('jine');
+$jine=M('zijin')->where("id<>0 and type='充值' ".$map)->sum('jine');
+$yuejifen=M('zijin')->where("addtime like '%".$riqi."%' and type='退款' ".$map)->sum('jine');
+$nianjifen=M('zijin')->where("addtime like '%".$nian."%' and type='退款' ".$map)->sum('jine');
+$jifen=M('zijin')->where("id<>0 and type='退款' ".$map)->sum('jine');
+</php>
+<div class="bjui-pageContent tableContent">
+<table class="table table-bordered table-hover table-striped" >
+    <tr><Td colspan=5 style="text-align:center;"><h3>营业状况表</h3></td></tr>     
+    <tr><Td colspan=5><div style="float:left"><h5>单位：{$shopname}</h5></div><div style="float:right"><h5>查询日期：{$chaxun}</h5></div></td></tr>            
+    <Tr><Td width='45%'><h5><B>项目</b></h5></td><Td width='10%'><h5><B>行次</b></h5></td><Td width='15%'><h5><B>本月数</b></h5></td><Td width='15%'><h5><B>本年数</b></h5></td><Td width='15%'><h5><B>历史数</b></h5></td></tr>
+    <Tr><Td><B>一、业务收入(营业额)</b></td><Td>1</td><Td>{$yueyingyee}</td><Td>{$nianyingyee}</td><Td>{$yingyee}</td></tr>
+	<Tr><Td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;加：其他业务收入</td><Td>2</td><Td>{$yueqtsr}</td><Td>{$nianqtsr}</td><Td>{$qtsr}</td></tr>
+	<Tr><Td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;减：业务成本(应付员工提成)</td><Td>4</td><Td>{$yueticheng}</td><Td>{$nianticheng}</td><Td>{$ticheng}</td></tr>
+	<Tr><Td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;减：费用支出(管理费用,工资(不含员工提成),房租,电话费等)</td><Td>5</td><Td>{$yuezhichu}</td><Td>{$nianzhichu}</td><Td>{$zhichu}</td></tr>	
+    <Tr><Td><B>二、毛利润</b></td><Td>6</td><Td>{$yuemaoli}</td><Td>{$nianmaoli}</td><Td>{$maoli}</td></tr>
+	<Tr><Td><B>三、会员数量</b></td><Td>7</td><Td>{$yuehysl}</td><Td>{$nianhysl}</td><Td>{$hysl}</td></tr>
+	<Tr><Td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;充值</td><Td>8</td><Td>{$yuejine}</td><Td>{$nianjine}</td><Td>{$jine}</td></tr>
+	<Tr><Td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;退款</td><Td>9</td><Td>{$yuejifen}</td><Td>{$nianjifen}</td><Td>{$jifen}</td></tr>
+ </table>
+				  
+</div>
+<div class="bjui-pageFooter">
+    <ul>
+       <li><button type="button" class="btn-close" data-icon="close">关闭</button></li>
+    </ul>
+</div>

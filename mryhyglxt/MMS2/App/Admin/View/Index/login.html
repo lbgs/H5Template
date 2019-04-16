@@ -1,0 +1,27 @@
+<!DOCTYPE>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>管理登陆</title>
+    <link href="__PUBLIC__/assets/css/result.css" rel="stylesheet" type="text/css">
+    <script type="text/javascript" src="__PUBLIC__/assets/js/jquery-1.9.1.min.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/assets/js/js.js"></script>
+</head>
+<body style="background: #fff;">
+<section class="login_ws">
+    <h1><img src="__PUBLIC__/assets/images/login_photo4.jpg"></h1>
+    <form class="log-page" action="{:U('index/login')}" name="login_form" method="post">
+        <dl>
+            <dt><span><img src="__PUBLIC__/assets/images/login_icon1.png" alt=""></span><strong><input type="text" name="username" placeholder="用户名或手机号码"></strong></dt>
+            <dt><span><img src="__PUBLIC__/assets/images/login_icon2.png" alt=""></span><strong><input type="text" name="password" placeholder="密码"></strong></dt>
+            <dd class="btn_ws"><a href="#" onClick="JavaScript:document.login_form.submit();">登陆</a></dd>
+        </dl>
+        </dl>
+    </form>
+    <h3>无法登陆？请到店咨询</h3>
+</section>
+</body>
+</html>

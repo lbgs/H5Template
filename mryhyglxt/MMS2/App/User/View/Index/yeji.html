@@ -1,0 +1,25 @@
+<extend name="base" />
+<block name="main">
+
+
+<div class="orderDet_list2">
+        <dl>
+            <dt>本月提成</dt>
+			<volist id="v" name="list">
+			 <dd>
+                <span class="current"></span>
+                <strong>
+                    <b>{$v.title}</b>
+                    类型：{$v.type}<Br/>
+                    金额：{$v.jine}<Br/>
+					时间：{$v.addtime}
+                </strong>
+            </dd>
+
+         </volist>
+        </dl>
+		<p class="pages">{$page}</p>
+ </div>
+
+
+</block>

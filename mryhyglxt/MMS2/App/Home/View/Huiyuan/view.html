@@ -1,0 +1,168 @@
+<div class="bjui-pageContent tableContent">
+        <div class="pageFormContent" style="margin:1px;" data-layout-h="0">
+		          <ul class="nav nav-tabs" role="tablist">
+                   <li class="active"><a href="#huiyuan" role="tab" data-toggle="tab">会员管理</a></li>
+					<li><a href='#tousu53' role='tab' data-toggle='tab'>客户投诉</a></li><li><a href='#xiaofei50' role='tab' data-toggle='tab'>消费记录</a></li><li><a href='#jifen47' role='tab' data-toggle='tab'>积分记录</a></li><li><a href='#huifang39' role='tab' data-toggle='tab'>客户回访</a></li><li><a href='#zijin48' role='tab' data-toggle='tab'>资金记录</a></li><li><a href='#cika52' role='tab' data-toggle='tab'>会员次卡</a></li><li><a href='#pingjia63' role='tab' data-toggle='tab'>评价管理</a></li><li><a href='#yuyue64' role='tab' data-toggle='tab'>预约管理</a></li>
+                  </ul>
+		 <div class="tab-content" style="border:0">
+           <div class="tab-pane fade active in" id="huiyuan"><table class="table table-bordered table-striped table-hover">
+           <tbody>
+		   <tr><td><label for='shopid_input' class='control-label x85'>所属店铺:</label>{$Rs.shopid}</td><td><label for='id_input' class='control-label x85'>ID:</label>{$Rs.id}</td></tr>
+<tr><td><label for='kahao_input' class='control-label x85'>卡号:</label>{$Rs.kahao}</td><td><label for='xingming_input' class='control-label x85'>姓名:</label>{$Rs.xingming}</td></tr>
+<tr><td><label for='mima_input' class='control-label x85'>会员密码:</label>{$Rs.mima}</td><td><label for='sex_input' class='control-label x85'>性别:</label>{$Rs.sex}</td></tr>
+<tr><td><label for='dianhua_input' class='control-label x85'>联系电话:</label>{$Rs.dianhua}</td><td><label for='dengji_input' class='control-label x85'>会员等级:</label>{$Rs.dengji}</td></tr>
+<tr><td><label for='sfz_input' class='control-label x85'>身份证号:</label>{$Rs.sfz}</td><td><label for='shengri_input' class='control-label x85'>会员生日:</label>{$Rs.shengri}</td></tr>
+<tr><td><label for='dizhi_input' class='control-label x85'>联系地址:</label>{$Rs.dizhi}</td><td><label for='zhuangtai_input' class='control-label x85'>会员状态:</label>{$Rs.zhuangtai}</td></tr>
+<tr><td><label for='jifen_input' class='control-label x85'>会员积分:</label>{$Rs.jifen}</td><td><label for='xiaofei_input' class='control-label x85'>历史消费:</label>{$Rs.xiaofei}</td></tr>
+<tr><td><label for='jine_input' class='control-label x85'>会员余额:</label>{$Rs.jine}</td><td><label for='jici_input' class='control-label x85'>计次:</label>{$Rs.jici}</td></tr>
+<tr><td><label for='jztime_input' class='control-label x85'>过期时间:</label>{$Rs.jztime}</td><td><label for='tjr_input' class='control-label x85'>推荐人卡号:</label>{$Rs.tjr}</td></tr>
+<tr></tr>
+<tr><td><label for='juname_input' class='control-label x85'>业务员:</label>{$Rs.juname}</td><td><label for='uname_input' class='control-label x85'>添加人:</label>{$Rs.uname}</td></tr>
+<tr><td><label for='addtime_input' class='control-label x85'>添加时间:</label>{$Rs.addtime}</td><td><label for='uuname_input' class='control-label x85'>更新人:</label>{$Rs.uuname}</td></tr>
+<tr><td><label for='updatetime_input' class='control-label x85'>更新时间:</label>{$Rs.updatetime}</td></tr>
+<tr><td colspan=2><label for='attid_input' class='control-label x85'>上传附件:</label>
+			<php>$attlist=M('files')->where('attid='.$Rs['attid'].' and status=1')->select();</php>	
+	        <foreach name='attlist' item='vf'>{$vf['uid']|truename=###}:<a href='__ROOT__/{$vf['folder']}{$vf['filename']}' target=_blank>{$vf['filedesc']}</A>&nbsp;&nbsp;{$vf['addtime']}<Br/><label  class='control-label x85'></label></foreach></td></tr></tr>
+<tr><td colspan=2><label for='beizhu_input' class='control-label x85'>备注:</label><div style='display: inline-block; vertical-align: middle;'>{$Rs.beizhu|html_out=###}</div></td></tr>
+           </tbody>
+          </table>
+		  </div>
+		  
+		 <div class='tab-pane fade' id='tousu53'><table class='table table-bordered table-striped table-hover'><php>$tousulist=M('tousu')->where(array('hid'=>$Rs['id']))->order('id desc')->limit(100)->select();</php> <thead> <tr><th>ID</th>
+<th height=30>投诉详情</th>
+<th height=30>处理结果</th>
+<th height=30>添加人</th>
+<th>添加时间</th>
+<th>更新人</th>
+<th>更新时间</th>
+</tr></thead><tbody><foreach name='tousulist' item='tousuv'><tr><td>{$tousuv.id}</td>
+<td>{$tousuv.content|msubstr=###,0,20}</td>
+<td>{$tousuv.beizhu|msubstr=###,0,20}</td>
+<td>{$tousuv.uname|msubstr=###,0,20}</td>
+<td>{$tousuv.addtime|substr=###,0,10}</td>
+<td>{$tousuv.uuname}</td>
+<td>{$tousuv.updatetime|substr=###,0,10}</td>
+</tr> </foreach> </tbody> </table></div><div class='tab-pane fade' id='xiaofei50'><table class='table table-bordered table-striped table-hover'><php>$xiaofeilist=M('xiaofei')->where(array('hid'=>$Rs['id']))->order('id desc')->limit(100)->select();</php> <thead> <tr><th>ID</th>
+<th>订单编号</th>
+<th height=30>消费内容</th>
+<th>消费类型</th>
+<th>消费金额</th>
+<th>优惠金额</th>
+<th>实际付款</th>
+<th>消费店铺</th>
+<th height=30>操作人</th>
+<th>消费时间</th>
+</tr></thead><tbody><foreach name='xiaofeilist' item='xiaofeiv'><tr><td>{$xiaofeiv.id}</td>
+<td>{$xiaofeiv.danhao}</td>
+<td>{$xiaofeiv.title|msubstr=###,0,20}</td>
+<td>{$xiaofeiv.type}</td>
+<td>{$xiaofeiv.jine}</td>
+<td>{$xiaofeiv.jian}</td>
+<td>{$xiaofeiv.fukuan}</td>
+<td>{$xiaofeiv.shopid|get_shop_name=###}</td>
+<td>{$xiaofeiv.uname|msubstr=###,0,20}</td>
+<td>{$xiaofeiv.addtime|substr=###,0,10}</td>
+</tr> </foreach> </tbody> </table></div><div class='tab-pane fade' id='jifen47'><table class='table table-bordered table-striped table-hover'><php>$jifenlist=M('jifen')->where(array('hid'=>$Rs['id']))->order('id desc')->limit(100)->select();</php> <thead> <tr><th>ID</th>
+<th>相关单号</th>
+<th height=30>会员姓名</th>
+<th>变动类型</th>
+<th>变动积分</th>
+<th height=30>详情</th>
+<th height=30>添加人</th>
+<th>添加时间</th>
+</tr></thead><tbody><foreach name='jifenlist' item='jifenv'><tr><td>{$jifenv.id}</td>
+<td>{$jifenv.danhao}</td>
+<td>{$jifenv.xingming|msubstr=###,0,20}</td>
+<td>{$jifenv.type}</td>
+<td>{$jifenv.jifen}</td>
+<td>{$jifenv.title|msubstr=###,0,20}</td>
+<td>{$jifenv.uname|msubstr=###,0,20}</td>
+<td>{$jifenv.addtime|substr=###,0,10}</td>
+</tr> </foreach> </tbody> </table></div><div class='tab-pane fade' id='huifang39'><table class='table table-bordered table-striped table-hover'><php>$huifanglist=M('huifang')->where(array('hid'=>$Rs['id']))->order('id desc')->limit(100)->select();</php> <thead> <tr><th>店铺ID</th>
+<th>ID</th>
+<th height=30>回访详情</th>
+<th height=30>处理结果</th>
+<th height=30>添加人</th>
+<th>添加时间</th>
+<th height=30>更新人</th>
+<th>更新时间</th>
+</tr></thead><tbody><foreach name='huifanglist' item='huifangv'><tr><td>{$huifangv.shopid}</td>
+<td>{$huifangv.id}</td>
+<td>{$huifangv.content|msubstr=###,0,20}</td>
+<td>{$huifangv.beizhu|msubstr=###,0,20}</td>
+<td>{$huifangv.uname|msubstr=###,0,20}</td>
+<td>{$huifangv.addtime|substr=###,0,10}</td>
+<td>{$huifangv.uuname|msubstr=###,0,20}</td>
+<td>{$huifangv.updatetime|substr=###,0,10}</td></tr> </foreach> </tbody> </table></div><div class='tab-pane fade' id='zijin48'><table class='table table-bordered table-striped table-hover'><php>$zijinlist=M('zijin')->where(array('hid'=>$Rs['id']))->order('id desc')->limit(100)->select();</php> <thead> <tr><th>ID</th>
+<th>所在店铺</th>
+<th>相关单号</th>
+<th>赠送</th>
+<th>银联</th>
+<th>现金</th>
+<th>变动类型</th>
+<th>变动金额</th>
+<th height=30>详情</th>
+<th height=30>添加人</th>
+<th>添加时间</th>
+</tr></thead><tbody><foreach name='zijinlist' item='zijinv'><tr><td>{$zijinv.id}</td>
+<td>{$zijinv.shopid|get_shop_name=###}</td>
+<td>{$zijinv.danhao}</td>
+<td>{$zijinv.song}</td>
+<td>{$zijinv.pos}</td>
+<td>{$zijinv.xianjin}</td>
+<td>{$zijinv.type}</td>
+<td>{$zijinv.jine}</td>
+<td>{$zijinv.title|msubstr=###,0,20}</td>
+<td>{$zijinv.uname|msubstr=###,0,20}</td>
+<td>{$zijinv.addtime|substr=###,0,10}</td>
+</tr> </foreach> </tbody> </table></div><div class='tab-pane fade' id='cika52'><table class='table table-bordered table-striped table-hover'><php>$cikalist=M('cika')->where(array('hid'=>$Rs['id']))->order('id desc')->limit(100)->select();</php> <thead> <tr><th>ID</th>
+<th height=30>商品编号</th>
+<th height=30>商品名称</th>
+<th height=30>剩余次数</th>
+<th height=30>添加人</th>
+<th>添加时间</th>
+</tr></thead><tbody><foreach name='cikalist' item='cikav'><tr><td>{$cikav.id}</td>
+<td>{$cikav.bianhao|msubstr=###,0,20}</td>
+<td>{$cikav.title|msubstr=###,0,20}</td>
+<td>{$cikav.shuliang|msubstr=###,0,20}</td>
+<td>{$cikav.uname|msubstr=###,0,20}</td>
+<td>{$cikav.addtime|substr=###,0,10}</td>
+</tr> </foreach> </tbody> </table></div><div class='tab-pane fade' id='pingjia63'><table class='table table-bordered table-striped table-hover'><php>$pingjialist=M('pingjia')->where(array('hid'=>$Rs['id']))->order('id desc')->limit(100)->select();</php> <thead> <tr><th>ID</th>
+<th>所在店铺</th>
+<th height=30>员工姓名</th>
+<th>评分</th>
+<th height=30>评价详情</th>
+<th height=30>员工回评</th>
+<th>评价时间</th>
+<th>回评时间</th>
+</tr></thead><tbody><foreach name='pingjialist' item='pingjiav'><tr><td>{$pingjiav.id}</td>
+<td>{$pingjiav.shopid|get_shop_name=###}</td>
+<td>{$pingjiav.juname|msubstr=###,0,20}</td>
+<td>{$pingjiav.pingfen}</td>
+<td>{$pingjiav.title|msubstr=###,0,20}</td>
+<td>{$pingjiav.content|msubstr=###,0,20}</td>
+<td>{$pingjiav.addtime|substr=###,0,10}</td>
+<td>{$pingjiav.updatetime|substr=###,0,10}</td>
+</tr> </foreach> </tbody> </table></div><div class='tab-pane fade' id='yuyue64'><table class='table table-bordered table-striped table-hover'><php>$yuyuelist=M('yuyue')->where(array('hid'=>$Rs['id']))->order('id desc')->limit(100)->select();</php> <thead> <tr><th>ID</th>
+<th>所在店铺</th>
+<th>员工姓名</th>
+<th height=30>预约内容</th>
+<th>预约时间</th>
+<th height=30>处理结果</th>
+<th>添加时间</th>
+</tr></thead><tbody><foreach name='yuyuelist' item='yuyuev'><tr><td>{$yuyuev.id}</td>
+<td>{$yuyuev.shopid|get_shop_name=###}</td>
+<td>{$yuyuev.juname}</td>
+<td>{$yuyuev.title|msubstr=###,0,20}</td>
+<td>{$yuyuev.yytime|substr=###,0,10}</td>
+<td>{$yuyuev.content|msubstr=###,0,20}</td>
+<td>{$yuyuev.addtime|substr=###,0,10}</td>
+</tr> </foreach> </tbody> </table></div>   
+		 </div>
+        </div>
+</div>
+<div class="bjui-pageFooter">
+    <ul>
+       <li><button type="button" class="btn-close" data-icon="close">关闭</button></li>
+    </ul>
+</div>

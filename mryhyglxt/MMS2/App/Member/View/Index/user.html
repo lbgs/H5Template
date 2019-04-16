@@ -1,0 +1,19 @@
+<extend name="base" />
+<block name="main">
+ <div class="personInfor_list1">
+        <dl>
+            <a href="{:U('index/info')}">
+                <dt><img src="__PUBLIC__/assets/images/login_photo4.jpg"/></dt>
+                <dd><span>{$Rs.xingming}</span><b>{$Rs.dengji}</b></dd>
+            </a>
+        </dl>
+    </div>
+    <div class="personInfor_list2">
+        <ul>
+            <li><a href="{:U('index/info')}"><img src="__PUBLIC__/assets/images/personInfor_icon4.jpg" border="0"/>基本资料</a> </li>
+            <li><a href="{:U('index/changepwd')}"><img src="__PUBLIC__/assets/images/personInfor_icon5.jpg"/>修改密码</a> </li>
+        </ul>
+    </div>
+    <h3 class="btn"><a href="{:U('index/logout')}">退出帐号</a> </h3>
+
+</block>

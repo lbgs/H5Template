@@ -1,0 +1,60 @@
+<div class="bjui-pageContent tableContent">
+        <div class="pageFormContent" style="margin:1px;" data-layout-h="0">
+		          <ul class="nav nav-tabs" role="tablist">
+                   <li class="active"><a href="#ruku" role="tab" data-toggle="tab">入库记录</a></li>
+					<li><a href='#rukus20' role='tab' data-toggle='tab'>入库明细表</a></li><li><a href='#shenhe22' role='tab' data-toggle='tab'>审核记录</a></li>
+                  </ul>
+		 <div class="tab-content" style="border:0">
+           <div class="tab-pane fade active in" id="ruku"><table class="table table-bordered table-striped table-hover">
+           <tbody>
+		   <tr><td><label for='id_input' class='control-label x85'>所属店铺:</label>{$Rs.shopid|get_shop_name=###}</td><td><label for='bianhao_input' class='control-label x85'>入库单号:</label>{$Rs.bianhao}</td></tr>
+<tr><td><label for='type_input' class='control-label x85'>来源:</label>{$Rs.type}</td><td><label for='title_input' class='control-label x85'>入库产品:</label>{$Rs.title}</td></tr>
+<tr><td><label for='shuliang_input' class='control-label x85'>入库数量:</label>{$Rs.shuliang}</td><td><label for='shijian_input' class='control-label x85'>入库时间:</label>{$Rs.shijian}</td></tr>
+<tr><td><label for='jingban_input' class='control-label x85'>经办人:</label>{$Rs.jingban}</td><td><label for='shenheren_input' class='control-label x85'>审核人:</label>{$Rs.shenheren}</td></tr>
+<tr><td><label for='shenhe_input' class='control-label x85'>审核状态:</label>{$Rs.shenhe}</td><td><label for='uname_input' class='control-label x85'>添加人:</label>{$Rs.uname}</td></tr>
+<tr><td><label for='addtime_input' class='control-label x85'>添加时间:</label>{$Rs.addtime}</td><td><label for='uuname_input' class='control-label x85'>更新人:</label>{$Rs.uuname}</td></tr>
+<tr><td><label for='updatetime_input' class='control-label x85'>更新时间:</label>{$Rs.updatetime}</td>
+           </tbody>
+          </table>
+		  </div>
+		  
+		 <div class='tab-pane fade' id='rukus20'><table class='table table-bordered table-striped table-hover'><php>$rukuslist=M('rukus')->where(array('xid'=>$Rs['id']))->limit(100)->select();</php> <thead> <tr><th>ID</th>
+<th>产品编号</th>
+<th>产品名称</th>
+<th>产品规格</th>
+<th height=30>计量单位</th>
+<th height=30>入库数量</th>
+<th height=30>备注</th>
+<th height=30>经办人</th>
+<th>入库时间</th>
+<th>审核状态</th>
+<th>详细</th></tr></thead><tbody><foreach name='rukuslist' item='rukusv'><tr><td>{$rukusv.id}</td>
+<td>{$rukusv.bianhao}</td>
+<td>{$rukusv.title}</td>
+<td>{$rukusv.type}</td>
+<td>{$rukusv.danwei|msubstr=###,0,20}</td>
+<td>{$rukusv.shuliang|msubstr=###,0,20}</td>
+<td>{$rukusv.beizhu|msubstr=###,0,20}</td>
+<td>{$rukusv.jingban|msubstr=###,0,20}</td>
+<td>{$rukusv.shijian|substr=###,0,10}</td>
+<td>{$rukusv.shenhe}</td>
+  <td><a href='__MODULE__/rukus/view/id/{$rukusv['id']}/navTabId/{:CONTROLLER_NAME}'  data-toggle='dialog' data-width='800' data-height='500' data-id='dialog-maskrukus' data-mask='true' >详细</a></td></tr> </foreach> </tbody> </table></div><div class='tab-pane fade' id='shenhe22'><table class='table table-bordered table-striped table-hover'><php>$shenhelist=M('shenhe')->where(array('xid'=>$Rs['id'],'type'=>CONTROLLER_NAME))->limit(100)->select();</php> <thead> <tr><th>ID</th>
+<th height=30>审核结果</th>
+<th height=30>审核意见</th>
+<th height=30>审核人</th>
+<th>审核时间</th>
+</tr></thead><tbody><foreach name='shenhelist' item='shenhev'><tr><td>{$shenhev.id}</td>
+<td>{$shenhev.title|msubstr=###,0,20}</td>
+<td>{$shenhev.content|msubstr=###,0,20}</td>
+<td>{$shenhev.uname|msubstr=###,0,20}</td>
+<td>{$shenhev.addtime|substr=###,0,10}</td>
+</tr> </foreach> </tbody> </table></div>
+		   
+		 </div>
+        </div>
+</div>
+<div class="bjui-pageFooter">
+    <ul>
+       <li><button type="button" class="btn-close" data-icon="close">关闭</button></li>
+    </ul>
+</div>

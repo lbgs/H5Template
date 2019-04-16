@@ -1,0 +1,25 @@
+<extend name="base" />
+<block name="main">
+
+
+<div class="orderDet_list2">
+        <dl>
+            <dt>客户投诉</dt>
+			<volist id="v" name="list">
+			 <dd>
+                <span class="current"></span>
+                <strong>
+                    <b>{$v.content}</b>
+                    处理结果：{$v.beizhu}<Br/>
+                    处理时间：{$v.updatetime}<Br/>
+					投诉时间：{$v.addtime}
+                </strong>
+            </dd>
+
+         </volist>
+        </dl>
+		<p class="pages">{$page}</p>
+ </div>
+
+
+</block>

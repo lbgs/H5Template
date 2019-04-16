@@ -1,0 +1,13 @@
+<extend name="base" />
+<block name="main">
+<style type="text/css">
+img{max-width: 100%;height: auto;width: auto\9;}
+</style>
+<div class="newsDet">
+        <h1>{$Rs.title}</h1>
+        <h2>时间：{$Rs.addtime}</h2>
+        <p>
+           <span>{$Rs.content|html_out=###}</span>
+        </p>
+    </div>
+</block>

@@ -1,0 +1,33 @@
+<extend name="base" />
+<block name="main">
+<div class="tab_con">
+    <div class="common myOrder">
+	   <div class="myOrder_list">
+		<foreach name='slist' item='v'><a href="{:U('index/yuyue',array('shopid'=>$v['shopid']))}"  class="btn" style="padding:10px;background: #ff6700;color: #fff;border: 0.1rem solid #ff6700;">{$v.shopid|get_shop_name=###}</a></foreach>
+		</div>
+		<volist id="v" name="list">
+		<div class="myOrder_list">
+                <h2><span>工号：{$v.gonghao}</span><strong>满意度：<php>if($v['manyi']==0){echo '暂无评价';}else{echo $v['manyi']."%";}</php></strong></h2>
+                <dl>
+                    <dt><img src="{$v.attid|getpic=###}" style="border:0;float:left;"></dt>
+                    <dd>
+                        <strong style="width:90%">
+                            <a href="#"><img src="__PUBLIC__/assets/images/orderList_icon1.png" border="0">店铺:{$v.shopid|get_shop_name=###}</a>
+                            <a href="#"><img src="__PUBLIC__/assets/images/orderList_icon2.png" border="0">特长:{$v.techang}</a>
+							<a href="#"><img src="__PUBLIC__/assets/images/orderList_icon1.png" border="0">职称:{$v.zhicheng}</a>
+							{$v.content|msubstr=###,0,32}
+                        </strong>
+                    </dd>
+                </dl>
+				<p><a href="{:U('index/yuyue_add',array('id'=>$v['id']))}" class="btn">我要预约</a><a href="{:U('index/pingjia',array('id'=>$v['id']))}" class="btn">我要评价</a> </p>
+            </div>
+		
+     </volist>
+		<p class="pages">{$page}</p>
+    </div>
+ </div>
+ 
+
+
+
+</block>

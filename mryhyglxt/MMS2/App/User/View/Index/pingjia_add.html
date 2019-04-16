@@ -1,0 +1,20 @@
+<extend name="base" />
+<block name="main">
+
+<div class="proMan_list1" style="background: #fff;">
+        <form  action="{:U('index/pingjia_add')}" id="login_form" method="post">
+		<input type="hidden" name="id" value="{$Rs.id}">
+		<input type="hidden" name="uid" value="{$urs.id}">
+		<input type="hidden" name="uuname" value="{$urs.truename}">
+		<input type="hidden" name="updatetime" value='<php>echo date("Y-m-d H:i:s",time())</php>'>
+<Table width="100%">
+<Tr><Td>客户姓名:</td><td><input type='text'   readonly   value='{$Rs.xingming}'  ></td></tr>
+<Tr><Td>评价内容:</td><td><input type='text'   readonly   value='{$Rs.title}'  ></td></tr>
+<Tr><Td>回评内容:</td><td><input type='text'  name='content'   value='{$Rs.content}'  ></td></tr>
+<Tr><Td></td><td><button class="btn_or" type="submit">提交</button></td></tr>
+</table>
+</form>
+</div>
+
+
+</block>

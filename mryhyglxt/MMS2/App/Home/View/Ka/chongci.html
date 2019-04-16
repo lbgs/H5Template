@@ -1,0 +1,122 @@
+<div class="bjui-pageHeader">
+<form id="pagerForm" data-toggle="ajaxsearch" action="__URL__/chongci" method="post">
+	
+	<input type="hidden" name="pageSize" value="{$numPerPage}">
+    <input type="hidden" name="pageCurrent" value="{$_REQUEST['pageNum']|default=1}">
+	 
+        <div class="bjui-searchBar" style="height:80px;line-height:80px;font-size:18px;">
+            请输入卡号/联系电话：<input type="text" value="{$_REQUEST['keys']}" name="keys" class="form-control" size="20" />
+             <button type="submit"  class="btn-default" data-icon="search">查询</button>
+              <a class="btn btn-orange" href="javascript:;" onclick="$(this).navtab('reloadForm', true);" data-icon="undo">清空查询</a>
+		</div> 
+</form>
+    
+</div>
+<div class="bjui-pageContent tableContent"><php>$rand_str=mt_rand(1000,9999);</php>
+<form action="__URL__/chongciok/navTabId/{:CONTROLLER_NAME}" class="pageForm"  name="form{$rand_str}" id="form{$rand_str}" data-toggle="validate">
+<input type="hidden" name="hid" value="{$Rs.id}">
+<input type="hidden" name="kahao" value="{$Rs.kahao}">
+<input type="hidden" name="xingming" value="{$Rs.xingming}">
+<php>if(!$Rs['shopid']){echo '<Tr><Td colspan=2>对不起，没有查找该会员</td></tr>'; }else{</php>
+<table class="table table-bordered table-hover table-striped" >
+<tr><td><label for='shopid_input' class='control-label x85'>所属店铺:</label>{$Rs.shopid|get_shop_name=###}</td><td><label for='kahao_input' class='control-label x85'>卡号:</label>{$Rs.kahao}</td></tr>
+<tr><td><label for='xingming_input' class='control-label x85'>姓名:</label>{$Rs.xingming}</td><td><label for='sex_input' class='control-label x85'>性别:</label>{$Rs.sex}</td></tr>
+<tr><td><label for='dianhua_input' class='control-label x85'>联系电话:</label>{$Rs.dianhua}</td><td><label for='dengji_input' class='control-label x85'>会员等级:</label>{$Rs.dengji}</td></tr>
+<tr><td><label for='dizhi_input' class='control-label x85'>联系地址:</label>{$Rs.dizhi}</td><td><label for='zhuangtai_input' class='control-label x85'>会员状态:</label>{$Rs.zhuangtai}</td></tr>
+<tr><td><label for='jifen_input' class='control-label x85'>会员积分:</label>{$Rs.jifen}</td><td><label for='jine_input' class='control-label x85'>会员余额:</label>{$Rs.jine}</td></tr>
+<tr><td><label for='jici_input' class='control-label x85'>计次:</label>{$Rs.jici}</td><td><label for='jztime_input' class='control-label x85'>过期时间:</label>{$Rs.jztime}</td></tr>
+<tr><td><label for='tjr_input' class='control-label x85'>办卡时间:</label>{$Rs.addtime}</td><td><label for='juname_input' class='control-label x85'>办卡人:</label>{$Rs.uname}</td></tr>
+
+<Tr><Td colspan=2 style="font-size:20px;line-height:40px;text-align:center">会员充次</td></tr>
+</table>
+<php>
+$zhekou=M('dengji')->where(array('title'=>$Rs['dengji']))->getField('zhekou');
+$bili=M('dengji')->where(array('title'=>$Rs['dengji']))->getField('bili');
+</php>
+<script type="text/javascript">
+ function js(a)
+ {
+ document.getElementById("czxiaoji"+a).value=document.getElementById("num"+a).value*document.getElementById("index["+a+"].zjiage").value;
+ document.getElementById("jifen"+a).value=document.getElementById("czxiaoji"+a).value*{$bili};
+ var a1=document.getElementById("num"+a).value;
+ var a2=document.getElementById("index["+a+"].kucun").value;
+ if(parseFloat(a1)>parseFloat(a2)){
+  document.getElementById("num"+a).value=document.getElementById("index["+a+"].kucun").value;
+ } 
+ var count = 0;
+                // 遍历所有文本框
+                var list = document.getElementsByTagName("input");
+                for(var i = 0; i < list.length; i++) {
+                    var name = list[i].getAttribute("name");
+                    // 忽略不是xiaoji开头的
+                    if (!/^czxiaoji/.test(name)) continue;
+                    var num = parseFloat(list[i].value);
+                    // 如果不是数字则忽略
+                    if (isNaN(num)) continue;
+                    count += num;
+                }
+  document.getElementById("jine{$rand_str}").value = count;
+  return js1{$rand_str}();
+ } 
+ function js1{$rand_str}(){
+ var e0=document.getElementById("yue{$rand_str}").value;
+ var e1=document.getElementById("xianjin{$rand_str}").value;
+ var e2=document.getElementById("pos{$rand_str}").value;
+ var e3=document.getElementById("shishou{$rand_str}").value;
+ var e4=document.getElementById("jine{$rand_str}").value;
+ var e5=document.getElementById("kayue{$rand_str}").value;
+ if(parseFloat(e5)>=parseFloat(e4)){
+ document.getElementById("yue{$rand_str}").value=document.getElementById("jine{$rand_str}").value;
+ }else{
+ document.getElementById("yue{$rand_str}").value=document.getElementById("kayue{$rand_str}").value;
+ }
+ document.getElementById("shishou{$rand_str}").value=parseFloat(e0)+parseFloat(e1)+parseFloat(e2); 
+  document.getElementById("zhaoling{$rand_str}").value=parseFloat(e3)-parseFloat(e4);
+ }
+ </script>
+<table class="table table-bordered table-hover table-striped" >
+<Tr><Td width="30%">
+<Table width="100%">
+<Tr><Td><label  class='control-label x85'>应付金额:</label><input type='text' id='jine{$rand_str}' name='jine' readonly size='10'  value='0'  >元<input type="hidden" id="kayue{$rand_str}" name="kayue" value="{$Rs.jine}"></td></tr>
+<Tr><Td><label  class='control-label x85'>余额支付:</label><input type='text' id='yue{$rand_str}' name='yue'  size='10' onblur="js1{$rand_str}()" onchange="js1{$rand_str}()" value='0' onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')" >元,如果用余额结算，填写此项</td></tr>
+<Tr><Td><label  class='control-label x85'>现金支付:</label><input type='text' id='xianjin{$rand_str}' name='xianjin'  size='10' onblur="js1{$rand_str}()" onchange="js1{$rand_str}()"  value='0' onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')" >元,如果用现金结算，填写此项</td></tr>
+<Tr><Td><label  class='control-label x85'>银联支付:</label><input type='text' id='pos{$rand_str}' name='pos'  size='10' onblur="js1{$rand_str}()" onchange="js1{$rand_str}()"  value='0' onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')" >元 如果用银联结算，填写此项</td></tr>
+<!--<Tr><Td><label  class='control-label x85'>优惠抹零:</label><input type='text' id='jian' name='jian'  size='10' onblur="js1{$rand_str}()" onchange="js1{$rand_str}()"  value='0'  onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')">元</td></tr>-->
+<Tr><Td><label  class='control-label x85'>实际收款:</label><input type='text' id='shishou{$rand_str}' name='shishou' onblur="js1{$rand_str}()" onchange="js1{$rand_str}()"  readonly size='10'  value='0' >元</td></tr>
+<Tr><Td><label  class='control-label x85'>找零金额:</label><input type='text' id='zhaoling{$rand_str}' name='zhaoling' readonly size='10'  value='0'  >元</td></tr>
+<!--<Tr><Td><label  class='control-label x85'>备注说明:</label><input type='text' id='title' name='title'  size='20'  value=''  ></td></tr>-->
+</table>
+</td>
+
+<td width="70%" valign="top">
+<table class="table table-bordered table-hover table-striped"   data-toggle="tabledit">
+ <thead>
+                    <tr> 
+                        <th title="序号" ><input type="text"  size="5" value="#index#" onblur="js('#index#')"  placeholder="序号"></th>
+                        <th title="商品编号"><input type="text" name="xbianhao[#index#]" id="index[#index#].bianhao"  type="text"  value="" onblur="js('#index#')" size="10" data-toggle="lookup" data-url='__MODULE__/Basic/sale/zhekou/{$zhekou}/navTabId/{:CONTROLLER_NAME}' data-group="index[#index#]" ></th>
+                        <th title="商品名称"><input type="text" name="xtitle[#index#]" id="index[#index#].title" type="text"  value="" size="10" onblur="js('#index#')"  ></th>
+						<th title="销售单价"><input type="text" name="xjiage[#index#]"  id="index[#index#].xjiage"  onblur="js('#index#')" size="10" value=""></th>
+						<th title="折后单价"><input type="text" name="zjiage[#index#]"  id="index[#index#].zjiage"  onblur="js('#index#')" size="10" value=""></th>
+						<th title="数量"><input type="text" name="xshuliang[#index#]" size="10" id="num#index#" onblur="js('#index#')" value="0" onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')"><input type="hidden" name="xkucun[#index#]"  id="index[#index#].kucun"  ></th>
+						<th title="小计"><input type="text" name="czxiaoji[#index#]"  id="czxiaoji#index#" onblur="js('#index#')" size="10" value=""></th>
+						<th title="获得积分"><input type="text" name="jifen[#index#]"  id="jifen#index#" size="10" value="" onblur="js('#index#')"></th>
+						<th title="" data-addtool="true" width="50">
+                            <a href="__MODULE__/public/delok" class="btn btn-red row-del" data-confirm-msg="确定要删除该行信息吗？">删</a>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+			  
+                </tbody>
+</table>
+</td></tr>
+</table>
+<php>}</php>
+ </form>
+</div>
+<div class="bjui-pageFooter">
+    <ul>
+       <li><button type="button" class="btn-close" data-icon="close">取消</button></li>
+       <li><button type="submit" class="btn-default" data-icon="save">保存</button></li>
+    </ul>
+</div>

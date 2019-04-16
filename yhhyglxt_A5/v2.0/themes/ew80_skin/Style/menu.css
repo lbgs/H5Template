@@ -1,0 +1,32 @@
+/*工具菜单样式*/
+#sidebar_page {background-color:#FFFFFF; height:100%;border-right:3px solid #0275C7;} 
+#sidebar {  width:107px;text-align:left;padding-top:5px; }
+#sidebar h2 {
+	text-decoration:none;
+	font-size:14px;
+	padding-left:10px;
+	padding-right:10px;
+	color:#333333;
+	line-height:30px;
+	border-bottom:1px solid #d0d0d0;
+	font-weight: bold;
+}
+		#sidebar_main  { background:url(../Images/icos/star.png) no-repeat 80px; }
+		#sidebar_listall  { background:url(../Images/icos/card.png) no-repeat 80px; }
+		#sidebar_Company  { background:url(../Images/icos/wallet.png) no-repeat 80px; }
+		#sidebar_Statistics  { background:url(../Images/icos/statistics.png) no-repeat 80px; }
+		#sidebar_drawer  { background:url(../Images/icos/drawer.png) no-repeat 80px; }
+		#sidebar_setting  { background:url(../Images/icos/gear.png) no-repeat 80px; }
+		#sidebar_user  { background:url(../Images/icos/user.png) no-repeat 80px; }
+		#sidebar_log  { background:url(../Images/icos/date.png) no-repeat 80px; }
+		#sidebar_message  { background:url(../Images/icos/mail.png) no-repeat 80px; }
+		#sidebar_notebook  { background:url(../Images/icos/notebook.png) no-repeat 80px; }
+		#sidebar_help  { background:url(../Images/icos/help.png) no-repeat 80px; }
+		#sidebar_plugin  { background:url(../Images/icos/puzzle.png) no-repeat 80px; }
+
+#sidebar li a {color:#333333; display:block;font-size:14px; height:26px; line-height:26px;padding:5px 0 5px 20px;border-bottom:1px solid #FFFFFF; }
+#sidebar li a:hover,#sidebar li a.active{color:#FFF; background-color:#0275C7;text-decoration:none;}
+
+.repeat-x ,#nav{ background-image: url(../images/repeat.gif); background-repeat:repeat-x;}
+.images ,#sidebar li a.active,#sidebar li a:hover { background-image:url(../images/images.gif); background-repeat:no-repeat;}
+#nav dd.link,#nav dt{ background-image:url(../images/images.gif); background-repeat:no-repeat;}

@@ -1,0 +1,31 @@
+<extend name="base" />
+<block name="main">
+
+<div class="userCenter_list1">
+        <dl>
+            <dt>
+                <h2>{$Rs.xingming}  [{$Rs.dengji}]</h2>
+                <h3>
+                    <span><img src="__PUBLIC__/assets/images/login_photo4.jpg"/></span>
+                    <strong>
+                        <b>{$Rs.truename}</b>
+                        <b>账户余额 <a href="{:U('index/myzijin')}"><i>{$Rs.jine}</i></a> </b>
+						<b>次卡余额 <a href="{:U('index/mycika')}"><i>{$Rs.jici}</i></a> </b>
+                        <b>积分余额 <a href="{:U('index/myjifen')}"><i>{$Rs.jifen}</b>
+                    </strong>
+                </h3>
+                <h4>总消费 <a href="{:U('index/myxiaofei')}"><span>{$Rs.xiaofei} </span></a>元</h4>
+            </dt>
+            <dd><a href="{:U('yuyue')}">预约/评价</a> <a href="{:U('index/tousu')}">我要投诉</a><a href="{:U('index/myyuyue')}">我的预约</a> </dd>
+        </dl>
+    </div>
+    <div class="userCenter_list2">
+        <dl>
+            <dt>最新动态<a href="{:U('index/news')}"> 更多>>></a></dt>
+			<volist id="v" name="list">
+            <dd><a href="{:U('index/news_detail',array('id'=>$v['id']))}"><span>[{$v.fenlei}] {$v.title|msubstr=###,0,26}</span><strong>[{$v.addtime|msubstr=###,5,5}]</strong></a> </dd>
+			</volist>
+        </dl>
+    </div>
+
+</block>

@@ -1,0 +1,26 @@
+<div class="bjui-pageContent tableContent">
+        <div class="pageFormContent" data-layout-h="0">
+          <table class="table table-bordered table-striped table-hover">
+           <tbody>
+		   <tr><td><label for='id_input' class='control-label x85'>ID:</label>{$Rs.id}</td></tr>
+		   <Tr><td><label for='title_input' class='control-label x85'>等级名称:</label>{$Rs.title}</td></tr>
+<tr><td><label for='jifen_input' class='control-label x85'>所需积分:</label> 达到{$Rs.jifen}积分就可以升级为本等级</td></tr>
+<Tr><td><label for='jizhi_input' class='control-label x85'>升级机制:</label><volist name="Think.config.SET_JIZHI" id="b_show">
+			 <if condition="$key EQ $Rs['b_show'] ">{$b_show} </if> 
+			</volist>  自动升级为每次消费后自动计算积分，根据积分调整等级</td></tr>
+<tr><td><label for='zhekou_input' class='control-label x85'>折扣比例:</label>{$Rs.zhekou} （即：达到此等级时，所能享受的折扣率，如：80表示八折，100表示不打折）</td></tr>
+<Tr><td><label for='bili_input' class='control-label x85'>积分比例:</label>消费 {$Rs.bili} RMB兑换1积分（即：消费XX人民币自动兑换成1个积分）</td></tr>
+<tr><td><label for='uname_input' class='control-label x85'>添加人:</label>{$Rs.uname}</td><td></tr>
+<Tr><td><label for='addtime_input' class='control-label x85'>添加时间:</label>{$Rs.addtime}</td></tr>
+<tr><td><label for='uuname_input' class='control-label x85'>更新人:</label>{$Rs.uuname}</td></tr>
+<Tr><td><label for='updatetime_input' class='control-label x85'>更新时间:</label>{$Rs.updatetime}</td></tr>
+<tr>
+           </tbody>
+          </table>
+        </div>
+</div>
+<div class="bjui-pageFooter">
+    <ul>
+       <li><button type="button" class="btn-close" data-icon="close">关闭</button></li>
+    </ul>
+</div>

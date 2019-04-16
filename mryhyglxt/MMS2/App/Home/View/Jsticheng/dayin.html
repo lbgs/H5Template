@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>{$Think.config.WEB_SITE_TITLE} Power by 连云港信友科技有限公司 服务热线：400-000-9981</title>
+<meta name="Keywords" content="连云港信友科技有限公司 服务热线：400-000-9981"/>
+<meta name="Description" content="连云港信友科技有限公司 服务热线：400-000-9981"/> 
+<!-- bootstrap - css -->
+<link href="__PUBLIC__/BJUI/themes/css/bootstrap.min.css" rel="stylesheet">
+<script src="__PUBLIC__/BJUI/js/jquery-1.7.2.min.js"></script>
+<script src="__PUBLIC__/BJUI/js/jquery.PrintArea.js"></script>
+</head>
+<body>
+ <php>
+if(isset($_REQUEST['time1']) && $_REQUEST['time1'] != ''&&isset($_REQUEST['time2']) && $_REQUEST['time2'] != ''){
+  $map =" addtime>='".I('time1')." 00:00:00' and addtime<='".I('time2')." 59:59:59' ";
+  }else{
+  $map=" id<>0 ";
+}
+  $yue=date("Y-m",time());
+  $nian=date("Y",time());
+  $ri=date("Y-m-d",time());
+</php>
+<div class="container min_width1300"  id="printArea" style="text-align:center">
+     <h3>员工提成统计 {:I('juname')}</h3>
+     <table border="1"  width="100%" style="font-size:14px;">
+            <thead>
+ <tr>
+            <td>编号</td>
+            <td>姓名</td>
+			<td>店铺</td>
+		    <td>部门</td>
+	    	<td>职位</td>
+            <td>本日提成</td>
+			<td>本月提成</td>
+			<td>本年提成</td>
+			<td>{:I('time1')}-{:I('time2')}</td>
+            </tr>
+        </thead>
+        <tbody>
+          <volist id="v" name="list">
+          <tr>
+		   <td>{$v.id}</td>
+           <td>{$v.truename}</td>
+		   <td>{$v.shopid|get_shop_name=###} </td>
+		   <td>{$v.depname}</td>
+		   <td>{$v.posname}</td>
+           <td><php>$rticheng=M('ticheng')->where("addtime like '%".$ri."%' and juid=".$v['id']." ")->sum('jine');echo $rticheng/1;</php></td>
+		   <td><php>$yticheng=M('ticheng')->where("addtime like '%".$yue."%' and juid=".$v['id']." ")->sum('jine');echo $yticheng/1;</php></td>
+		   <td><php>$nticheng=M('ticheng')->where("addtime like '%".$nian."%' and juid=".$v['id']." ")->sum('jine');echo $nticheng/1;</php></td>
+		   <td><php>$ticheng=M('ticheng')->where($map." and juid=".$v['id']." ")->sum('jine');echo $ticheng/1;</php></td>
+         </tr> 
+          </volist>
+        </tbody>
+    </table>
+<table border="0"  width="100%" style="font-size:14px;">
+<tbody>
+<tr><td width="25%">审核人:</td><td width="25%">接收人:</td><td width="20%">交接人: {$Rs.uname}</td><td width="35%">打印:<php>echo date("Y-m-d H:i:s",time());</php>
+</td></tr>
+</tbody>
+</table>
+</div>
+<div style="text-align:center;margin-top:50px;">
+		<button type="button" id="print_btn" class="btn btn-primary">打印</button>&nbsp;
+		<button type="button" onclick="javascript:window.close();" class="btn">关闭</button>
+	   </div>
+<script type="text/javascript">
+/**
+ * 打印
+ **/
+$('#print_btn').click(function(){
+	$('#printArea').printArea();
+	$(this).html('加载中 ...');
+	setTimeout("$('#print_btn').html('打印');",1200);
+});
+</script>
+ </body>
+</html>

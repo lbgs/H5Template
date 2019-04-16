@@ -1,0 +1,53 @@
+/* 通用部分 */
+.top_bg {width:100%;position:fixed;height:38px;line-height:38px;line-height:0\0;top:0px;font-weight:bold; z-index:999;background: #fff url(../images/dtit.gif) repeat-x bottom;}
+.top_left {
+	padding-left:10px;
+	font-size:14px;
+	color: #333333;
+}
+.top_right { text-align:right;padding-right:10px;height:35px;line-height:35px;line-height:0\0;}
+.fixed_bg {width:100%; position:fixed; height:38px; bottom:0;font-weight:bold;z-index:999;background: #fff url(../images/dtit.gif) repeat-x top;}
+.fixed_bg_T {width:100%; position:fixed; height:45px; top:0;font-weight:bold;z-index:999;background: #fff url(../images/dtit.gif) repeat-x bottom;}
+.fixed_bg_B {width:100%; position:fixed; height:45px; bottom:0;font-weight:bold;z-index:999;background: #fff url(../images/dtit.gif) repeat-x top;}
+.l {float:left;}
+.r {float:right;}
+.Bottom_pd {padding:8px 10px;}
+
+/*所有客户 listall.asp*/
+.Search_All {line-height:30px;height:30px;padding:10px;}
+
+/*菜单class-start*/
+.Menubox {font-size:12px;margin:0 10px 0px 0;height:29px;border-bottom:1px solid #999;}
+.Menubox ul{margin:0;padding:0px;padding-left:10px;}
+.Menubox li{float:left;cursor:pointer;width:75px;text-align:center;margin-right:1px;padding:0;background-image:url(../images/repeat.gif);background-repeat:no-repeat;background-position:left -155px;height:29px;line-height:29px;}
+.Menubox li span{display:block;background-position:right top;color:#000;}
+.Menubox li.hover{background-position:left -125px;color:#ffffff;}
+.Menubox li.hover a:link, .Menubox li.hover a:visited, .Menubox li.hover  a:active, .Menubox li.hover a:hover {font-size: 13px;font-weight:bold;color:#ffffff;}
+.Menubox a:link,.Menubox a:visited,.Menubox a:active  {font-size: 13px;font-weight:bold;color:#6d6d6d;text-decoration: none;}
+.Menubox a:hover  {text-decoration: none;}
+.Menuboxbottom{margin:0;height:10px;line-height:10px;background:url(../images/tab_line.gif) repeat-x left top;}
+
+/*菜单class-start*/
+.MenuboxS {font-size:13px;margin:0 10px 10px 0;}
+.MenuboxS ul{margin:0;padding:0px;padding-left:10px;}
+.MenuboxS li{float:left;cursor:pointer;width:75px;text-align:center;margin-right:10px;margin-bottom:0px;padding:0;background-image:url(../images/repeat.gif);background-repeat:no-repeat;background-position:left -155px;height:30px;line-height:30px;}
+.MenuboxS li span{display:block;background-position:right top;color:#000;}
+.MenuboxS li.hover{background-position:left -125px;color:#ffffff;}
+.MenuboxS li.hover a:link, .MenuboxS li.hover a:visited, .MenuboxS li.hover  a:active, .MenuboxS li.hover a:hover {font-size: 13px;font-weight:bold;color:#ffffff;}
+.MenuboxS a:link,.MenuboxS a:visited,.MenuboxS a:active  {font-size: 13px;font-weight:bold;color:#6d6d6d;text-decoration: none;}
+.MenuboxS a:hover  {text-decoration: none;}
+
+/*系统设置*/
+	#td_type_left {text-align:center;border:1px solid #ddd;border-right:0;width:80px;}
+	#td_type_right {text-align:center;border:1px solid #ddd;width:100px;}
+
+/**/
+/**/
+/**/
+/**/
+/**/
+/**/
+/**/
+/**/
+/**/
+/**/

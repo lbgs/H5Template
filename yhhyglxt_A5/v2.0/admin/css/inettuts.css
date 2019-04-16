@@ -1,0 +1,55 @@
+.color-1 {background:#ABCDEF;}.color-2    {background:#ABCDEF;}.color-3   {background:#ABCDEF;}.color-4  {background:#ABCDEF;}
+.color-5 {background:#ABCDEF;}.color-6  {background:#ABCDEF;}.color-7 {background:#ABCDEF;}.color-8  {background:#ABCDEF;}
+.color-1 h3,.color-1 h3 a{color:#000;}.color-2 h3,.color-2 h3 a{color:#000;}
+.color-3 h3,.color-3 h3 a{color:#000;}.color-4 h3,.color-4 h3 a{color:#000;}
+.color-5 h3,.color-5 h3 a{color:#000;}.color-6 h3,.color-6 h3 a{color:#000;}
+.color-7 h3,.color-7 h3 a{color:#000;}.color-8 h3,.color-8 h3 a{color:#000;}
+
+#columns .column { float: left;width: 33.3%;min-height: 400px;height: auto !important; height: 400px;}
+	
+#columns #column1 .widget { margin: 15px 10px 0px 10px; }
+#columns #column2 .widget { margin: 15px 5px  0px 5px; }
+#columns #column3 .widget { margin: 15px 10px 0px 10px; }
+#columns .widget {
+    padding: 3px;
+    margin: 15px 5px 0px 5px;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+	border-radius: 5px;
+}
+#columns .widget .widget-head {
+	height:25px;
+	width:100%;
+	line-height:30px;
+}
+#columns .widget .widget-head h3 {
+    padding: 0 10px;
+    float: left;
+}
+#columns .widget .widget-content {
+    background: #fff;
+	width:100%;
+    -moz-border-radius-bottomleft: 2px;
+    -moz-border-radius-bottomright: 2px;
+    -webkit-border-bottom-left-radius: 2px;
+    -webkit-border-bottom-right-radius: 2px;
+	padding:0;margin:0;
+    overflow: hidden;
+}
+#columns .widget .widget-content ul {
+    padding: 5px 10px;
+    list-style: disc;
+}
+#columns .widget .widget-content ul li {padding: 1px 0;line-height:30px;border-bottom:1px solid #ddd;}
+#columns .widget .widget-content .none{padding: 1px 0;line-height:30px;border-bottom:0;}
+#columns .widget .widget-content ul date {
+	float:right;
+    padding: 0 7px 0 0;
+    list-style: none;
+}
+/* End Columns section */
+
+.widget-placeholder { border: 2px dashed #999;}
+#column1 .widget-placeholder { margin: 15px 10px 0px 10px; }
+#column2 .widget-placeholder { margin: 15px 5px 0px 5px; }
+#column3 .widget-placeholder { margin: 15px 10px 0px 10px; }

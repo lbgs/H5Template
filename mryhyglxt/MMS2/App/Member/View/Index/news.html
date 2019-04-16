@@ -1,0 +1,27 @@
+<extend name="base" />
+<block name="main">
+    <div class="tab_menu">
+        <ul>
+            <li><a href="#">最新动态</a> </li>
+            <li class="selected"><a href="#">热门动态</a> </li>
+        </ul>
+    </div>
+
+    <div class="tab_con">
+        <div class="common userCenter_list2">
+            <dl>
+			   <volist id="v" name="list">
+               <dd><a href="{:U('index/news_detail',array('id'=>$v['id']))}"><span>[{$v.fenlei}] {$v.title|msubstr=###,0,26}</span><strong>[{$v.addtime|msubstr=###,5,5}]</strong></a> </dd>
+			   </volist>
+            </dl>
+			 <p class="pages">{$page}</p>
+        </div>
+        <div class="common userCenter_list2">
+            <dl>
+			   <volist id="v" name="list2">
+               <dd><a href="{:U('index/news_detail',array('id'=>$v['id']))}"><span>[{$v.fenlei}] {$v.title|msubstr=###,0,26}</span><strong>[{$v.addtime|msubstr=###,5,5}]</strong></a> </dd>
+			   </volist>
+            </dl>
+        </div>
+    </div>
+</block>

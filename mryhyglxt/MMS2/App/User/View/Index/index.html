@@ -1,0 +1,33 @@
+<extend name="base" />
+<block name="main">
+<div class="userCenter_list1">
+        <dl>
+            <dt>
+                <h2>{$Rs.truename}业绩</h2>
+                <h3>
+                    <span><img src="__PUBLIC__/assets/images/login_photo4.jpg"/></span>
+                    <strong>
+                        <b>本日 <a href="{:U('index/yeji')}"><i><php>$ri=M('ticheng')->where("addtime like '%".date("Y-m-d",time())."%' and juid=".$Rs['id']." ")->sum('jine');echo $ri/1;</php></i></a> 元</b>
+                        <b>本月 <a href="{:U('index/yeji')}"><i><php>$yue=M('ticheng')->where("addtime like '%".date("Y-m",time())."%' and juid=".$Rs['id']." ")->sum('jine');echo $yue/1;</php></i></a> 元 </b>
+						<b>本年 <a href="{:U('index/yeji')}"><i><php>$nian=M('ticheng')->where("addtime like '%".date("Y",time())."%' and juid=".$Rs['id']." ")->sum('jine');echo $nian/1;</php></i></a> 元 </b>
+                    </strong>
+                </h3>
+                <h4>今日服务<a href="{:U('index/yeji')}"><span><php>$cishu=M('ticheng')->where("addtime like '%".date("Y-m-d",time())."%' and juid=".$Rs['id']." ")->count('id');echo $cishu/1;</php></span></a> 人/次</h4>
+            </dt>
+            <dd><a href="{:U('index/yeji')}">我的业绩</a> <a href="{:U('index/mypingjia')}">客户评价</a><a href="{:U('index/myyuyue')}">预约记录</a> </dd>
+        </dl>
+    </div>
+    <div class="userCenter_list2">
+        <dl>
+            <dt>最新动态<a href="{:U('index/news')}"> 更多>>></a></dt>
+			<volist id="v" name="list">
+            <dd><a href="{:U('index/news_detail',array('id'=>$v['id']))}"><span>[{$v.fenlei}] {$v.title|msubstr=###,0,20}</span><strong>[{$v.addtime|msubstr=###,5,5}]</strong></a> </dd>
+			</volist>
+        </dl>
+    </div>
+	<div class="userCenter_list3">
+        <span><a href="{:U('index/top')}" class="btn">本月销冠<img src="__PUBLIC__/assets/images/userCenter_icon2.png"/></a> </span>
+        <span><a href="{:U('index/guwen')}" class="btn">顾问资料<img src="__PUBLIC__/assets/images/userCenter_icon4.png"/></a> </span>
+    </div>
+
+</block>

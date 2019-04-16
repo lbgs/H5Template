@@ -1,0 +1,37 @@
+<extend name="base" />
+<block name="main">
+<php>$map1['addtime'] =array(array('egt',date("Y-m-d",time()).' 00:00:00'),array('elt',date("Y-m-d",time()).' 59:59:59'));</php>
+<div class="userCenter_list1">
+        <dl>
+            <dt>
+                <h2>今日业绩</h2>
+                <h3>
+                    <span><img src="__PUBLIC__/assets/images/login_photo4.jpg"/></span>
+                    <strong>
+                        <b>客户 <a href="{:U('index/shop')}"><i><php>$shops=M('huiyuan')->where($map1)->count('id');echo $shops/1;</php></i></a> 位</b>
+                        <b>现金 <a href="{:U('index/shop')}"><i><php>$xianjin=M('zijin')->where($map1)->sum('xianjin');echo $xianjin/1;</php></i></a> 元 </b>
+						<b>银联 <a href="{:U('index/shop')}"><i><php>$pos=M('zijin')->where($map1)->sum('pos');echo $pos/1;</php></i></a> 元 </b>
+                        <b>卡付 <a href="{:U('index/shop')}"><i><php>$yue=M('zijin')->where($map1)->sum('yue');echo $yue/1;</php></i></a> 元</b>
+                    </strong>
+                </h3>
+                <h4>顾问提成<a href="{:U('index/shop')}"><span><php>$jine=M('ticheng')->where($map1)->sum('jine');echo $jine/1;</php></span></a>元 </h4>
+            </dt>
+            <dd><a href="{:U('index/shop')}">店铺业绩</a> <a href="{:U('index/tousu')}">客户投诉</a><a href="{:U('index/pingjia')}">客户评价</a> </dd>
+        </dl>
+    </div>
+    <div class="userCenter_list2">
+        <dl>
+            <dt>最新动态<a href="{:U('index/news')}"> 更多>>></a></dt>
+			<volist id="v" name="list">
+            <dd><a href="{:U('index/news_detail',array('id'=>$v['id']))}"><span>[{$v.fenlei}] {$v.title|msubstr=###,0,20}</span><strong>[{$v.addtime|msubstr=###,5,5}]</strong></a> </dd>
+			</volist>
+        </dl>
+    </div>
+	<div class="userCenter_list3">
+        <span><a href="{:U('index/top')}" class="btn">本月销冠<img src="__PUBLIC__/assets/images/userCenter_icon2.png"/></a> </span>
+        <span><a href="{:U('index/tousu')}" class="btn">客户投诉<img src="__PUBLIC__/assets/images/userCenter_icon4.png"/></a> </span>
+		<span><a href="{:U('index/yuyue')}" class="btn">预约记录<img src="__PUBLIC__/assets/images/userCenter_icon4.png"/></a> </span>
+        <span><a href="{:U('index/shop')}" class="btn">店铺业绩<img src="__PUBLIC__/assets/images/userCenter_icon7.png"/></a> </span>
+    </div>
+
+</block>

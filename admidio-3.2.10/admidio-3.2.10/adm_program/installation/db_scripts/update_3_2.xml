@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<update>
+    <step id="10">ComponentUpdate::updateStepRenameWebmasterToAdministrator</step>
+    <step id="20">ALTER TABLE %PREFIX%_roles ADD COLUMN rol_administrator boolean not null default '0'</step>
+    <step id="30">UPDATE %PREFIX%_roles SET rol_administrator = rol_webmaster</step>
+    <step id="40">ALTER TABLE %PREFIX%_roles DROP COLUMN rol_webmaster</step>
+    <step id="50">UPDATE %PREFIX%_texts SET txt_text = REPLACE(txt_text, '#webmaster_email#', '#administrator_email#')</step>
+    <step id="60">create table %PREFIX%_roles_rights
+        (
+            ror_id                         integer       unsigned not null AUTO_INCREMENT,
+            ror_name_intern                varchar(50)   not null,
+            ror_table                      varchar(50)   not null,
+            primary key (ror_id)
+        )
+        engine = InnoDB
+        default character set = utf8
+        collate = utf8_unicode_ci</step>
+    <step id="70">create table %PREFIX%_roles_rights_data
+        (
+            rrd_id                         integer       unsigned not null AUTO_INCREMENT,
+            rrd_ror_id                     integer       unsigned not null,
+            rrd_rol_id                     integer       unsigned not null,
+            rrd_object_id                  integer       unsigned not null,
+            rrd_usr_id_create              integer       unsigned,
+            rrd_timestamp_create           timestamp     not null default CURRENT_TIMESTAMP,
+            primary key (rrd_id)
+        )
+        engine = InnoDB
+        default character set = utf8
+        collate = utf8_unicode_ci</step>
+    <step id="80">create unique index IDX_%PREFIX%_RRD_ROR_ROL_OBJECT_ID on %PREFIX%_roles_rights_data (rrd_ror_id, rrd_rol_id, rrd_object_id)</step>
+    <step id="90">INSERT INTO %PREFIX%_roles_rights (ror_name_intern, ror_table)
+                  VALUES ('folder_view', 'adm_folders'),
+                         ('folder_upload', 'adm_folders')
+    </step>
+    <step id="100">ComponentUpdate::updateStepMigrateToFolderRights</step>
+    <step id="110">DROP TABLE %PREFIX%_folder_roles</step>
+    <step id="120">alter table %PREFIX%_roles_rights_data add constraint %PREFIX%_FK_RRD_ROR foreign key (rrd_ror_id)
+        references %PREFIX%_roles_rights (ror_id) on delete restrict on update restrict</step>
+    <step id="130">alter table %PREFIX%_roles_rights_data add constraint %PREFIX%_FK_RRD_ROL foreign key (rrd_rol_id)
+        references %PREFIX%_roles (rol_id) on delete restrict on update restrict</step>
+    <step id="140">alter table %PREFIX%_roles_rights_data add constraint %PREFIX%_FK_RRD_USR_CREATE foreign key (rrd_usr_id_create)
+        references %PREFIX%_users (usr_id) on delete set null on update restrict</step>
+    <step id="150">ComponentUpdate::updateStepNewDownloadRootFolderName</step>
+    <step id="160">UPDATE %PREFIX%_preferences SET prf_value = 'AHGBold.ttf' WHERE prf_name = 'captcha_fonts'</step>
+    <step id="170">DELETE FROM %PREFIX%_preferences WHERE prf_name = 'captcha_font_size'</step>
+    <step id="180">DELETE FROM %PREFIX%_preferences WHERE prf_name = 'captcha_signature_font_size'</step>
+    <step id="190">DELETE FROM %PREFIX%_preferences WHERE prf_name = 'captcha_height'</step>
+    <step id="200">DELETE FROM %PREFIX%_preferences WHERE prf_name = 'captcha_signs'</step>
+    <step id="210">UPDATE %PREFIX%_preferences SET prf_value = 'Powered by Admidio.org' WHERE prf_name = 'captcha_signature' and prf_value = 'POWERED  BY   A D M I D I O . O R G'</step>
+
+    <step id="220">create table %PREFIX%_user_relation_types
+        (
+            urt_id integer unsigned not null AUTO_INCREMENT,
+            urt_name varchar(100) not null,
+            urt_name_male varchar(100) not null,
+            urt_name_female varchar(100) not null,
+            urt_id_inverse integer unsigned default null,
+            urt_usr_id_create integer unsigned default null,
+            urt_timestamp_create timestamp not null default CURRENT_TIMESTAMP,
+            urt_usr_id_change integer unsigned default null,
+            urt_timestamp_change timestamp null default null,
+            primary key (urt_id)
+        )
+        engine = InnoDB
+        auto_increment = 1
+        default character set = utf8
+        collate = utf8_unicode_ci</step>
+    <step id="230">create unique index %PREFIX%_IDX_URE_URT_NAME on %PREFIX%_user_relation_types (urt_name)</step>
+    <step id="240">create table %PREFIX%_user_relations
+        (
+            ure_id integer unsigned not null AUTO_INCREMENT,
+            ure_urt_id integer unsigned not null,
+            ure_usr_id1 integer unsigned not null,
+            ure_usr_id2 integer unsigned not null,
+            ure_usr_id_create integer unsigned default null,
+            ure_timestamp_create timestamp not null default CURRENT_TIMESTAMP,
+            ure_usr_id_change integer unsigned default null,
+            ure_timestamp_change timestamp null default null,
+            primary key (ure_id)
+        )
+        engine = InnoDB
+        auto_increment = 1
+        default character set = utf8
+        collate = utf8_unicode_ci</step>
+    <step id="250">create unique index %PREFIX%_IDX_URE_URT_USR on %PREFIX%_user_relations (ure_urt_id,ure_usr_id1,ure_usr_id2)</step>
+    <step id="260">alter table %PREFIX%_user_relation_types add constraint %PREFIX%_FK_URT_ID_INVERSE foreign key (urt_id_inverse)
+        references %PREFIX%_user_relation_types (urt_id) on delete cascade on update restrict</step>
+    <step id="270">alter table %PREFIX%_user_relation_types add constraint %PREFIX%_FK_URT_USR_CHANGE foreign key (urt_usr_id_change)
+        references %PREFIX%_users (usr_id) on delete set null on update restrict</step>
+    <step id="280">alter table %PREFIX%_user_relation_types add constraint %PREFIX%_FK_URT_USR_CREATE foreign key (urt_usr_id_create)
+        references %PREFIX%_users (usr_id) on delete set null on update restrict</step>
+    <step id="290">alter table %PREFIX%_user_relations add constraint %PREFIX%_FK_URE_URT foreign key (ure_urt_id)
+        references %PREFIX%_user_relation_types (urt_id) on delete cascade on update restrict</step>
+    <step id="300">alter table %PREFIX%_user_relations add constraint %PREFIX%_FK_URE_USR1 foreign key (ure_usr_id1)
+        references %PREFIX%_users (usr_id) on delete cascade on update restrict</step>
+    <step id="310">alter table %PREFIX%_user_relations add constraint %PREFIX%_FK_URE_USR2 foreign key (ure_usr_id2)
+        references %PREFIX%_users (usr_id) on delete cascade on update restrict</step>
+    <step id="320">alter table %PREFIX%_user_relations add constraint %PREFIX%_FK_URE_USR_CHANGE foreign key (ure_usr_id_change)
+        references %PREFIX%_users (usr_id) on delete set null on update restrict</step>
+    <step id="330">alter table %PREFIX%_user_relations add constraint %PREFIX%_FK_URE_USR_CREATE foreign key (ure_usr_id_create)
+        references %PREFIX%_users (usr_id) on delete set null on update restrict</step>
+    <step id="340">ComponentUpdate::updateStepInstallDefaultUserRelationTypes</step>
+    <step id="350" database="mysql">UPDATE %PREFIX%_preferences pr1 INNER JOIN %PREFIX%_preferences pr2 ON pr2.prf_name LIKE 'mail_sender_into_to' SET pr1.prf_value = pr2.prf_value WHERE pr1.prf_name LIKE 'mail_recipients_with_roles'</step>
+    <step id="360" database="pgsql">UPDATE %PREFIX%_preferences pr1 SET prf_value = pr2.prf_value FROM %PREFIX%_preferences pr2 WHERE pr2.prf_name LIKE 'mail_sender_into_to' AND pr1.prf_name LIKE 'mail_recipients_with_roles'</step>
+    <step id="370">DELETE FROM %PREFIX%_preferences WHERE prf_name = 'mail_sender_into_to'</step>
+    <step id="380" database="mysql">UPDATE %PREFIX%_preferences pr1 INNER JOIN %PREFIX%_preferences pr2 ON pr2.prf_name = 'lists_default_configuation' SET pr1.prf_value = pr2.prf_value WHERE pr1.prf_name = 'lists_default_configuration'</step>
+    <step id="390" database="pgsql">UPDATE %PREFIX%_preferences pr1 SET prf_value = pr2.prf_value FROM %PREFIX%_preferences pr2 WHERE pr2.prf_name = 'lists_default_configuation' AND pr1.prf_name = 'lists_default_configuration'</step>
+    <step id="400">DELETE FROM %PREFIX%_preferences WHERE prf_name = 'lists_default_configuation'</step>
+    <step id="410">ALTER TABLE %PREFIX%_announcements ADD COLUMN ann_cat_id integer unsigned</step>
+    <step id="420">ComponentUpdate::updateStepAddAnnouncementsCategories</step>
+    <step id="430" database="mysql">ALTER TABLE %PREFIX%_announcements MODIFY COLUMN ann_cat_id integer unsigned NOT NULL</step>
+    <step id="440" database="pgsql">ALTER TABLE %PREFIX%_announcements ALTER COLUMN ann_cat_id SET NOT NULL</step>
+    <step id="450">alter table %PREFIX%_announcements add constraint %PREFIX%_FK_ANN_CAT foreign key (ann_cat_id)
+        references %PREFIX%_categories (cat_id) on delete restrict on update restrict</step>
+    <step id="460" database="mysql" error="ignore">ALTER TABLE %PREFIX%_announcements DROP FOREIGN KEY %PREFIX%_FK_ANN_ORG</step>
+    <step id="470" database="mysql" error="ignore">ALTER TABLE %PREFIX%_announcements DROP INDEX %PREFIX%_FK_ANN_ORG</step>
+    <step id="480" database="pgsql">ALTER TABLE %PREFIX%_announcements DROP CONSTRAINT %PREFIX%_FK_ANN_ORG</step>
+    <step id="490">ALTER TABLE %PREFIX%_announcements DROP COLUMN ann_org_id</step>
+    <step id="500">ComponentUpdate::updateStepRewriteFolderRights</step>
+    <step id="510" database="pgsql">UPDATE %PREFIX%_user_fields SET usf_value_list = E'male.png|SYS_MALE\nfemale.png|SYS_FEMALE' WHERE usf_name_intern = 'GENDER'</step>
+    <step id="520">UPDATE %PREFIX%_roles SET rol_administrator = 1 WHERE rol_name = 'Administrator'</step>
+
+    <step>stop</step>
+</update>

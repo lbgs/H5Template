@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>{$Think.config.WEB_SITE_TITLE} Power by 连云港信友科技有限公司 服务热线：400-000-9981</title>
+<meta name="Keywords" content="连云港信友科技有限公司 服务热线：400-000-9981"/>
+<meta name="Description" content="连云港信友科技有限公司 服务热线：400-000-9981"/> 
+<!-- bootstrap - css -->
+<link href="__PUBLIC__/BJUI/themes/css/bootstrap.min.css" rel="stylesheet">
+<script src="__PUBLIC__/BJUI/js/jquery-1.7.2.min.js"></script>
+<script src="__PUBLIC__/BJUI/js/jquery.PrintArea.js"></script>
+</head>
+<body>
+<!-- core - css -->
+<div class="container min_width1300"  id="printArea" >
+<table border="0"  width="100%"  style="font-size:14px;">
+<tbody>
+  <Tr><td colspan="3" style="text-align:Center">
+  <h3>{$Rs.shopid|get_shop_name=###}{$Rs.type}单</h3>
+  </td></tr>
+   <tr><td width="25%">消费类型:{$Rs.type}</td><td width="40%">单号：{$Rs.danhao}</td><td width="35%">消费时间:{$Rs.addtime}</td></tr>
+    <php>$hrs=M('huiyuan')->find($Rs['hid']);
+    if($hrs){
+     </php>
+      <tr><td>会员姓名:{$Rs.xingming} [{$hrs.sex}]</td><td>卡号/等级：{$hrs.kahao}/{$hrs.dengji}</td><td>联系电话:{$hrs.dianhua}</td></tr>
+     <php>}</php>
+ </tbody>
+</table>
+<table border="1"  width="100%" style="font-size:14px;line-height:200%">
+<tbody>
+
+<php>$xlist=M('xiaofeis')->where(array('xid'=>I('id')))->select();
+if($xlist){
+</php>
+<Tr><Td colspan=8 style="text-align:center"><b>{$Rs.type}明细</b></td></tr>
+<Tr><Td colspan=8>
+<table border="1"  width="100%" style="font-size:14px;line-height:200%">
+                <thead>
+                   <tr>
+                        <th width=50>序号</th>
+                        <th>产品编号</th>
+                        <th>产品名称</th>
+						<th>销售价格</th>
+						<th>折后价格</th>
+                        <th>销售数量</th>
+						<th>小计</th>
+						<th>获得积分</th>
+                    </tr>
+                </thead>
+                <tbody>
+<foreach name='xlist' item='xv'><tr><td>{$key+1}</td>
+<td>{$xv.bianhao}</td>
+<td>{$xv.title}</td>
+<td>{$xv.xjiage}</td>
+<td>{$xv.zjiage}</td>
+<td>{$xv.shuliang}</td>
+<td>{$xv.xiaoji}</td>
+<td>{$xv.jifen}</td>
+</tr>
+</foreach>
+<tr><Td colspan=8><B>合计金额大写：</b>{$Rs.jine|cny=###} &nbsp;&nbsp;&nbsp;&nbsp;<B>合计金额小写：</b>{$Rs.jine}</td></tr>
+ </tbody>
+ </table>
+ </td>
+</tr>
+ <php>}</php>
+<php>$SS=M('zijin')->where(array('danhao'=>$Rs['danhao']))->find();
+if($SS){
+</php>
+<Tr><Td colspan=8><b>合计付款：</b>{$SS.jine}({$SS.jine|cny=###})&nbsp;&nbsp;&nbsp;&nbsp;
+其中<b>卡支付:</b>{$SS.yue} &nbsp;&nbsp;<b>现金:</b>{$SS.xianjin} &nbsp;&nbsp;<b>银联:</b>{$SS.pos} &nbsp;&nbsp;<b>优惠:</b>{$SS.jian} 
+</td></tr>
+<php>}</php>
+</tbody>
+</table>
+<php>$srs=M('shop')->find($Rs['shopid']);</php>
+<table border="1"  width="100%" style="font-size:14px;">
+  <tbody>
+  <Tr><Td>{$srs.beizhu}</td></tr>
+  <tr><td>店铺：{$srs.title}  &nbsp;&nbsp;&nbsp;&nbsp;地址：{$srs.dizhi}  &nbsp;&nbsp;&nbsp;&nbsp;电话：{$srs.dianhua}</td></tr>
+  </tbody>
+</table>
+<table border="0"  width="100%" style="font-size:14px;">
+<tbody>
+<tr><td width="25%">审核人:</td><td width="25%">顾客签字:</td><td width="25%">操作人: {$Rs.uname}</td><td width="25%">打印:<php>echo date("Y-m-d H:i:s",time());</php>
+</td></tr>
+</tbody>
+</table>
+</div>
+<div style="text-align:center;margin-top:50px;">
+		<button type="button" id="print_btn" class="btn btn-primary">打印</button>&nbsp;
+		<button type="button" onclick="javascript:window.close();" class="btn">关闭</button>
+	   </div>
+<script type="text/javascript">
+/**
+ * 打印
+ **/
+$('#print_btn').click(function(){
+	$('#printArea').printArea();
+	$(this).html('加载中 ...');
+	setTimeout("$('#print_btn').html('打印');",1200);
+});
+</script>
+ </body>
+</html>

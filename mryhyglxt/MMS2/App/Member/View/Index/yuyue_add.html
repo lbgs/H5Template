@@ -1,0 +1,59 @@
+<extend name="base" />
+<block name="main">
+<div class="profile" style="background: #fff;">
+<form  action="{:U('index/yuyue_add')}" id="login_form" method="post">
+<input type="hidden" name="juid" value="{$urs.id}">
+		<input type="hidden" name="shopid" value="{$urs.shopid}">
+		<input type="hidden" name="hid" value="{$Rs.id}">
+		<input type="hidden" name="xingming" value="{$Rs.xingming}">
+		<input type="hidden" name="kahao" value="{$Rs.kahao}">
+		<input type="hidden" name="addtime" value='<php>echo date("Y-m-d H:i:s",time())</php>'>
+<Table width="100%" cellpadding="20" cellspacing="10">
+<Tr><Td width="100">顾问姓名:</td><td><input type='text'  name='juname' readonly   value='{$urs.truename}'  ></td></tr>
+<Tr><Td>顾问工号:</td><td><input type='text'   readonly   value='{$gonghao}'  ></td></tr>
+<Tr><Td>所在店铺:</td><td><input type='text'   readonly   value='{$urs.shopid|get_shop_name=###}'  ></td></tr>
+<Tr><Td>预计到店时间:</td><td>
+<input  type="text" value="" placeholder="<php>echo date('Y-m-d',time());</php>" name="riqi" id="endTime"  >
+<select   name="time" >
+<option value="08:00:00"/>8:00</option>
+<option value="08:30:00"/>8:30</option>
+<option value="09:00:00"/>9:00</option>
+<option value="09:30:00"/>9:30</option>
+<option value="10:00:00"/>10:00</option>
+<option value="10:30:00"/>10:30</option>
+<option value="11:00:00"/>11:00</option>
+<option value="11:30:00"/>11:30</option>
+<option value="12:00:00"/>12:00</option>
+<option value="12:30:00"/>12:30</option>
+<option value="13:00:00"/>13:00</option>
+<option value="13:30:00"/>13:30</option>
+<option value="14:00:00"/>14:00</option>
+<option value="14:30:00"/>14:30</option>
+<option value="15:00:00"/>15:00</option>
+<option value="15:30:00"/>15:30</option>
+<option value="16:00:00"/>16:00</option>
+<option value="16:30:00"/>16:30</option>
+<option value="17:00:00"/>17:00</option>
+<option value="17:30:00"/>17:30</option>
+<option value="18:00:00"/>18:00</option>
+<option value="18:30:00"/>18:30</option>
+<option value="19:00:00"/>19:00</option>
+<option value="19:30:00"/>19:30</option>
+<option value="20:00:00"/>20:00</option>
+<option value="20:30:00"/>20:30</option>
+<option value="21:00:00"/>21:00</option>
+<option value="21:30:00"/>21:30</option>
+<option value="22:00:00"/>22:00</option>
+<option value="22:30:00"/>22:30</option>
+<option value="23:00:00"/>23:00</option>
+<option value="23:30:00"/>23:30</option>
+</select></td></tr>
+</td></tr>
+<Tr><Td>预约服务内容:</td><td><textarea name='title'  cols='60' rows='3' ></textarea></td></tr>
+<Tr><Td></td><td><button class="btn" type="submit">提交</button></td></tr>
+</table>
+</form>
+</div>
+<div id="datePlugin"></div>
+
+</block>

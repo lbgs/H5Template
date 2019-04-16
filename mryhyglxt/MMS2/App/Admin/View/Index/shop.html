@@ -1,0 +1,30 @@
+<extend name="base" />
+<block name="main">
+<div class="derOrderSearch clearWater">
+    <div id="datePlugin"></div>
+    <div class="myCustomer_list red">
+        <ul>
+		 <volist id="v" name="list">
+            <li>
+                <div class="l1">
+                     <a href="{:U('index/shop_detail',array('id'=>$v['id']))}"><p class="tit">{$v.id|get_shop_name=###} </p></a>
+                </div>
+                <div class="l3">
+                    <p>现金收入：<span class="red"><php>
+					$jine=M('zijin')->where("addtime like '%".date("Y-m-d",time())."%' and shopid=".$v['id']." ")->sum('xianjin');
+					echo $jine/1;</php></span></p>
+                </div>
+                <div class="l4">
+				<p>银联收入：<span class="red"><php>
+					$jine=M('zijin')->where("addtime like '%".date("Y-m-d",time())."%' and shopid=".$v['id']." ")->sum('pos');
+					echo $jine/1;</php></span></p>
+				</div>
+            </li>
+		</volist>
+        </ul> 
+		<p class="pages">{$page}</p>
+    </div>
+ </div>
+
+
+</block>

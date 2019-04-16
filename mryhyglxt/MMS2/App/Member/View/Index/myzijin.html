@@ -1,0 +1,38 @@
+<extend name="base" />
+<block name="main">
+
+<div class="derOrderSearch clearWater">
+<form class="log-page" action="{:U('index/myzijin')}" name="login_form" method="post">
+    <div class="totChaRec_list1">
+        <dl>
+            <dt>
+                <span><input type="text" style="border:0px;border-bottom:1px solid #ccc" value="{$_REQUEST['time1']}" placeholder="<php>echo date('Y-m-d',strtotime('-1 month'));</php>" name="time1" id="beginTime"></span>
+                <strong>至</strong>
+                <span><input type="text" style="border:0px;border-bottom:1px solid #ccc" value="{$_REQUEST['time2']}" placeholder="<php>echo date('Y-m-d',time());</php>" name="time2" id="endTime"></span>
+            </dt>
+            <dd class="btn"><a onClick="JavaScript:document.login_form.submit();">查询</a> </dd>
+        </dl>
+    </div>
+</form>
+    <div id="datePlugin"></div>
+    <div class="myCustomer_list red">
+        <ul>
+		 <volist id="v" name="list">
+            <li>
+                <div class="l1">
+                    <p class="tit">{$v.kahao} </p>
+                    <p>{$v.type}</p>
+                </div>
+                <div class="l3">
+                    <p>金额：<span class="red">{$v.jine}</span></p>
+                </div>
+                <div class="l4"><span class="time">{$v.addtime|msubstr=###,0,10}</span></div>
+            </li>
+		</volist>
+        </ul> 
+		<p class="pages">{$page}</p>
+    </div>
+ </div>
+
+
+</block>

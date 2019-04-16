@@ -1,0 +1,24 @@
+<extend name="base" />
+<block name="main">
+<div class="profile" style="background: #fff;">
+<form  action="{:U('index/info')}" id="login_form" method="post">
+		<input type="hidden" name="id" value="{$id}">
+<Table width="100%">
+<Tr><Td>所在店铺:</td><td><input type='text'   readonly   value='{$Rs.shopid|get_shop_name=###}'  ></td></tr>
+<Tr><Td>用户名:</td><td><input type='text'  name='username'  readonly   value='{$Rs.username}'  ></td></tr>
+<Tr><Td>姓名:</td><td><input type='text'  name='truename' readonly  value='{$Rs.truename}'  ></td></tr>
+<Tr><Td>性别:</td><td><select name="sex">
+                <option value="{$Rs['sex']}" selected>{$Rs['sex']}</option>
+				<option value="男">男</option>
+                <option value="女">女</option>
+                 </select></td></tr>
+<Tr><Td>手机号码:</td><td><input type='text'  name='phone'   value='{$Rs.phone}'  ></td></tr>
+<Tr><Td>电子邮箱:</td><td><input type='text'  name='email'  value='{$Rs.email}'  ></td></tr>
+<Tr><Td>QQ/微信:</td><td><input type='text'  name='qq'  value='{$Rs.qq}'  ></td></tr>
+<Tr><Td></td><td><button class="btn" type="submit" style="width:40%">提交</button><a href="{:U('index/index')}" >暂不更新，跳过</a></td></tr>
+</table>
+</form>
+    </div>
+
+
+</block>

@@ -1,0 +1,25 @@
+<extend name="base" />
+<block name="main">
+<div class="personInfor_list1">
+以下资料填写用于客户预约页面，请尽量完善资料！
+</div>
+<div class="profile" style="background: #fff;">
+<form  action="{:U('index/guwen')}" id="login_form" method="post" onkeydown="if(event.keyCode==13)return false;">
+<Table width="100%" cellpadding="20" cellspacing="10" style="font-size:18px;">
+<Tr><Td>工号:(管理员填写)</td></tr>
+<Tr><td><input type='text'  readonly  value='{$Rs.gonghao}'  ></td> </tr>
+<Tr><Td>职称:(管理员填写)</td></tr>
+<Tr><td><input type='text'  readonly  value='{$Rs.zhicheng}'  ></td> </tr>
+<Tr><Td>姓名:(<font color=red>*必填</font>)</td></tr>
+<Tr><td><input type='text'  name='xingming'  value='{$Rs.xingming}'  ><input type="hidden" name="id" value="{$Rs.id}"></td> </tr>
+<Tr><Td>特长:(<font color=red>*必填</font>)</td></tr>
+<Tr><td><input type='text'  name='techang'  size='20'   value='{$Rs.techang}'  ></td></tr>
+<Tr><Td>个人介绍:(<font color=red>*必填</font>)</td></tr>
+<Tr><td><input type='text' name='content'  size='20'   value='{$Rs.content}'  ></td></tr>
+<Tr><Td>上传照片:<Br/></td></tr>
+<Tr><td><div style='display: inline-block; vertical-align: middle;'><IFRAME   src='__MODULE__/Public/attfile/attid/{$attid}/'  frameBorder=0 width='100%' height='30' scrolling=no ></IFRAME><input type='hidden' id='attid' name='attid'  value='{$attid}'  ></div></td></tr>
+<Tr><td style="text-align:center;"><button class="btn" type="submit">提交</button></td></tr>
+</table>
+</form>
+
+</block>

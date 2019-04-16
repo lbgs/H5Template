@@ -1,0 +1,23 @@
+<div class="bjui-pageContent tableContent">
+    <form action="__URL__/edit/navTabId/{:CONTROLLER_NAME}" class="pageForm" data-toggle="validate">
+		<input type="hidden" name="id" value="{$id}">
+        <div class="pageFormContent" data-layout-h="0">
+          <table class="table table-condensed table-hover" width="100%">
+           <tbody>
+		   <tr><td><label for='title_input' class='control-label x85'>店铺名称:</label><input type='text' id='title' name='title' data-rule='required;' size='20'   value='{$Rs.title}'  ></td><td><label for='dizhi_input' class='control-label x85'>店铺地址:</label><input type='text' id='dizhi' name='dizhi'  size='20'   value='{$Rs.dizhi}'  ></td></tr>
+<tr><td><label for='dianhua_input' class='control-label x85'>店铺电话:</label><input type='text' id='dianhua' name='dianhua'  size='20'   value='{$Rs.dianhua}'  ></td><td><label for='name_input' class='control-label x85'>联系人:</label><input type='text' id='name' name='name'  size='20'   value='{$Rs.name}'  ></td></tr>
+<tr></tr>
+<tr><td><label for='iszb_input' class='control-label x85'>是否总部:</label><select name='iszb'  data-toggle='selectpicker' ><option value=''>请选择</option><volist name='Think.config.SHOP_ISZB' id='iszb'><option value='{$iszb}' <if condition=" $iszb EQ $Rs['iszb'] " >selected</if> >{$iszb}</option></volist></select></td></tr>
+<tr><td colspan=2><label for='beizhu_input' class='control-label x85'>打印备注:</label><textarea name='beizhu'  cols='65' rows='5' >{$Rs.beizhu}</textarea></td></tr></tr>
+<tr><td colspan=2><label for='content_input' class='control-label x85'>店铺简介:</label><textarea name='content'  cols='65' rows='5' >{$Rs.content}</textarea></td></tr>
+           </tbody>
+          </table>
+        </div>
+    </form>
+</div>
+<div class="bjui-pageFooter">
+    <ul>
+       <li><button type="button" class="btn-close" data-icon="close">取消</button></li>
+       <li><button type="submit" class="btn-default" data-icon="save">保存</button></li>
+    </ul>
+</div>

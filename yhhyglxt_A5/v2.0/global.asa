@@ -1,0 +1,7 @@
+<script language="vbscript" runat="server">
+Sub Application_onStart
+    Application("sys_url")  =""                '系统安装目录，如果是根目录，无需填写，如果是二级目录请填写: /目录名  
+	Application("dbname")  = "/Data/#$ewsaas$hy.mdb"     '数据库路径
+	Application("sys_key") = "SN20161124190426"          '产品授权序列号
+End Sub
+</script>

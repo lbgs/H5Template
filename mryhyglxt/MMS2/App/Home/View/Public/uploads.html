@@ -1,0 +1,33 @@
+<div class="bjui-pageContent tableContent">
+        <div class="pageFormContent" data-layout-h="0">
+          <table class="table table-bordered table-striped table-hover">
+        <thead>
+            <tr>
+                <th>No.</th>
+				<th>上传人</th>
+                <th>文件描述</th>
+                <th>时间</th>
+                <th width="74">操作</th>
+            </tr>
+        </thead>
+        <tbody>
+		  <volist id="v" name="list">
+            <tr>
+             <td>{$v.id}</td>
+			 <td>{$v['uid']|truename=###}</td>
+             <td><a href='__ROOT__/{$v['folder']}{$v['filename']}' target=_blank>{$v['filedesc']}</a></td>
+		     <td>{$v.addtime} </td>
+             <td>
+                <a href="__URL__/filelock/id/{$v['id']}/navTabId/{:CONTROLLER_NAME}" data-toggle="doajax" data-confirm-msg="确定要操作吗？"><if condition="$v.status EQ 1 "><img src="__PUBLIC__/images/ok.gif" border="0"/><else/><img src="__PUBLIC__/images/locked.gif" border="0"/></if></a>
+             </td>
+            </tr>
+			</volist>
+        </tbody>
+    </table>
+	</div>
+</div>
+<div class="bjui-pageFooter">
+    <ul>
+      <li><button type="button" class="btn-close" data-icon="close">关闭</button></li>
+    </ul>
+</div>
